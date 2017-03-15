@@ -1,4 +1,5 @@
 DOCUMENT := 'Main'
+TIMESTAMP := $(shell date '+%Y-%m-%d--%H-%M-%S')
 
 default:
 	@pdflatex $(DOCUMENT)
@@ -13,3 +14,6 @@ clean:
 	@rm -f $(DOCUMENT).aux
 	@rm -f $(DOCUMENT).log
 	@rm -f $(DOCUMENT).pdf
+
+snapshot:
+	@cp $(DOCUMENT).pdf snapshots/$(DOCUMENT)--$(TIMESTAMP).pdf

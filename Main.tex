@@ -1,31 +1,51 @@
 \documentclass{fhnwfactsheet}
 \usepackage{lipsum}
-\usepackage{tikz}
-\usepackage{multicol}
+%\usepackage{FiraSans}
 
+% ================================================================= SET TITLE %
 \title{Phenomenal Title!}
 \author{Glorious Author!}
-\begin{document}
-\noindent\begin{minipage}{\pdfpagewidth}
 
-\maketitle
-\noindent\fbox{
-    \begin{minipage}{\textwidth}
-        \lipsum[1]
-    \end{minipage}}
-\lipsum[1-2]
-\begin{multicols}{4}
+% ============================================================== END PREAMBLE %
+\begin{document}
+\begin{factpage}
+% ============================================================= BEGIN CONTENT %
+
+% ------------------------------------------------------------------ OVERVIEW %
+\begin{overview}
+    \lipsum[2]
+\end{overview}
+
+\begin{content}
+
     \section{This is a section}
     \lipsum[2]
     \section{This is another section}
     \lipsum[4]
     \section{And another one!}
     \lipsum[5]
-\end{multicols}
+
+\end{content}
+
 \lipsum[1]
 
-\includegraphics[width=5cm]{images/a-stunning-picture.png}
-\includegraphics[width=5cm]{images/a-very-nice-graphic.png}
+\factgraphics{a-stunning-picture.png}{a-very-nice-graphic.png}
 
-\end{minipage}
+% ------------------------------------------------------------------ STUDENTS %
+\begin{students}
+    \lipsum[2]
+\end{students}
+
+% ------------------------------------------------------------------- COACHES %
+\begin{coaches}
+    \lipsum[2]
+\end{coaches}
+
+% ----------------------------------------------------------------- PARTNERS %
+\begin{partners}
+    \lipsum[2]
+\end{partners}
+
+% ============================================================== END CONTENT %
+\end{factpage}
 \end{document}
