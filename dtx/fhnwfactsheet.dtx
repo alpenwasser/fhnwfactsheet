@@ -16,7 +16,8 @@
 %\CheckSum{0}
 %
 %
-%^^A ---------------------------------------------- DRIVER, PROVIDESCLASS ETC. %
+%^^A ------------------------------------------------------------------------- %
+%^^A DRIVER, PROVIDESCLASS ETC. (((
 % \iffalse
 %<*driver>
 \ProvidesFile{fhnwfactsheet.dtx}
@@ -63,9 +64,10 @@
 \end{document}
 %</driver>
 % \fi
+%^^A )))
 %
-%
-%^^A ---------------------------------------------------- TITLE, ABSTRACT, ToC %
+%^^A ------------------------------------------------------------------------- %
+%^^A TITLE, ABSTRACT, ToC (((
 % \GetFileInfo{fhnwfactsheet.dtx}
 % \author{Raphael Frey \\[0.5em] \href{https://github.com/alpenwasser/TeX/}%
 %                                     {\nolinkurl{https://github.com/alpenwasser/TeX/}}}
@@ -100,9 +102,12 @@
 % \fi
 %
 % \tableofcontents
+%^^A )))
 %
 %
-% \section{Installation} ^^A -------------------------------------INSTALLATION %
+%^^A ------------------------------------------------------------------------- %
+%^^A INSTALLATION (((
+% \section{Installation}
 % \label{sec:installation}
 %
 % \ifenglish
@@ -120,8 +125,11 @@
 %
 % \DescribeMacro{\factpageinner}
 % We desribe another macro, |\factpageinner|. We can also do many things with that macro.
+%^^A )))
 %
-% \section{Implementation} ^^A -------------------------------- IMPLEMENTATION %
+%^^A ------------------------------------------------------------------------- %
+%^^A IMPLEMENTATION (((
+% \section{Implementation}
 % \label{sec:implementation}
 %
 % \StopEventually{}
@@ -144,9 +152,10 @@
 %\fi
 %
 % \Finale
+%^^A )))
 %
-%
-%^^A ----------------------------------------------------------------  TEMPLATE%
+%^^A ------------------------------------------------------------------------- %
+%^^A TEMPLATE (((
 % \iffalse
 %<*template>
 \documentclass{fhnwfactsheet}
@@ -202,9 +211,10 @@
 \end{document}
 %</template>
 % \fi
-%^^A -------------------------------------------------------------END  TEMPLATE%
+%^^A )))
 %
-%^^A -------------------------------------------------- MULTI-LANGUAGE SUPPORT %
+%^^A ------------------------------------------------------------------------- %
+%^^A MULTI-LANGUAGE SUPPORT (((
 % \iffalse
 %<*de>
 \expandafter\newif\csname ifenglish\endcsname
@@ -212,9 +222,10 @@
 \input{fhnwfactsheet.dtx}
 %</de>
 % \fi
-%^^A ---------------------------------------------- END MULTI-LANGUAGE SUPPORT %
+%^^A )))
 %
-%^^A --------------------------------------------------------- CHARACTER TABLE %
+%^^A ------------------------------------------------------------------------- %
+%^^A CHARACTER TABLE (((
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -230,6 +241,6 @@
 %   Right bracket \]     Circumflex    \^     Underscore    \_
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
-%^^A ------------------------------------------------------END CHARACTER TABLE %
+%^^A )))
 \endinput
-
+%^^A vim: foldenable foldmethod=marker foldmarker=(((,)))
