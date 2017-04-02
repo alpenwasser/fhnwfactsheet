@@ -4,6 +4,10 @@
 % -------------------------------
 % \fi
 %
+%\CheckSum{0}
+%
+% \StopEventually{}
+%
 % \iffalse
 %<*driver>
 \ProvidesFile{fhnwfactsheet.dtx}
@@ -15,21 +19,71 @@
 %</class>
 %
 %<*driver>
+\expandafter\ifx\csname ifenglish\endcsname\relax
+    \expandafter\newif\csname ifenglish\endcsname
+    \englishtrue
+\fi
 \documentclass[a4paper,11pt,oneside]{ltxdoc}
 \EnableCrossrefs
 \CodelineIndex
+\ifenglish
+    \usepackage[english]{babel}
+\else
+    \usepackage[ngerman]{babel}
+\fi
 \RecordChanges
 \begin{document}
     \DocInput{fhnwfactsheet.dtx}
 \end{document}
 %</driver>
 % \fi
-% \title{My Package!}
-% \maketitle
-% \begin{abstract}
-%     This is my abstract.
-% \end{abstract}
-% \section{First Section}
-% Text!
+%
+%
+% \GetFileInfo{fhnwfactsheet.dtx}
+%
+%
+% \ifenglish
+%   \title{My Class! \filedate}
+%   \maketitle
+%   \begin{abstract}
+%       This is my abstract.
+%   \end{abstract}
+%   \section{First Section}
+%   Text!
+% \else
+%   \title{Meine Klasse! \filedate}
+%   \maketitle
+%   \begin{abstract}
+%       Deutsches Abstract
+%   \end{abstract}
+%   \section{Erster Abschnitt!}
+%   Deutscher Text!
+%   \fi
+% \iffalse
+%
+%
+%<*de>
+%% Wrapper to set language to German.
+\expandafter\newif\csname ifenglish\endcsname
+\englishfalse
+\input{fhnwfactsheet.dtx}
+%</de>
+% \fi
 % \Finale
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
 \endinput
+

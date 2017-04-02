@@ -9,6 +9,10 @@
 \endpreamble
 
 \keepsilent
+\askforoverwritefalse
 
-\generate{\file{fhnwfactsheet.cls}{\from{fhnwfactsheet.dtx}{class}}}
+\generate{%
+    \file{fhnwfactsheet.cls}{\from{fhnwfactsheet.dtx}{class}}%
+    \file{fhnwfactsheet-de.tex}{\from{fhnwfactsheet.dtx}{de}}%
+    }
 \endbatchfile
