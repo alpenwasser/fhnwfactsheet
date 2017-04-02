@@ -2,6 +2,7 @@ default:
 	@latex fhnwfactsheet.ins
 	@pdflatex fhnwfactsheet.dtx
 	@pdflatex fhnwfactsheet-de.tex
+	#@cp fhnwfactsheet.cls ../
 
 clean:
 	@rm -f fhnwfactsheet.aux
@@ -12,9 +13,7 @@ clean:
 	@rm -f fhnwfactsheet.pdf
 	@rm -f fhnwfactsheet.dvi
 	@rm -f fhnwfactsheet.tex
-	@rm -f fhnwfactsheet-de.aux
-	@rm -f fhnwfactsheet-de.glo
-	@rm -f fhnwfactsheet-de.idx
-	@rm -f fhnwfactsheet-de.log
-	@rm -f fhnwfactsheet-de.pdf
-	@rm -f fhnwfactsheet-de.tex
+	@rm -f fhnwfactsheet.out
+	@rm -f fhnwfactsheet.toc
+	@rm -f fhnwfactsheet-de.*
+	@rm -f template.*
