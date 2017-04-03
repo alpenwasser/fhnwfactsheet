@@ -1,41 +1,42 @@
-\documentclass[german]{fhnwfactsheet}
+\documentclass[english]{fhnwfactsheet}
 \usepackage{lipsum}
+\usepackage{tikz}
 
-% ================================================================= SET TITLE %
-\title{Phenomenal Title!}
-\authors{Glorious First Author, Honorable Second Author}
-\coaches{Very Competent Coach, Slightly Less Competent Coach}
-\expert{Strict Expert}
-\partner{Partner Company}
+% --------------------------------------------------------------------- TITLE %
+\title{Phenomenal Title of at Least Some Lenth!}
+\team{Glorious First Author, Honorable Second Author}
+%\coach{Single Coach}
+\coaches{%
+    Very Competent Coach,
+    Slightly Less Competent Coach,
+    Hilarious Coach,
+    Sleepy Coach}
+%\expert{Strict Expert}
+\experts{Strict Expert, Rigorous Expert}
+%\partner{Partner Company}
+\partners{Partner Company, Another Partner Company}
+% ------------------------------------------------------------------END TITLE %
 
-% ============================================================== END PREAMBLE %
-\begin{document}
-\begin{factpage}
-% ============================================================= BEGIN CONTENT %
 
-% ------------------------------------------------------------------ OVERVIEW %
-\begin{overview}
+\fssummary{ % -------------------------------------------------------- SUMMARY %
     \lipsum[2]
-\end{overview}
-% ---------------------------------------------------------------END OVERVIEW %
+} % ---------------------------------------------------------------END SUMMARY %
 
-% -------------------------------------------------------------- MAIN CONTENT %
-%\factgraphics{a-stunning-picture.png}{a-very-nice-graphic.png}
 
-\begin{content}
+\fsgraphics{ % ------------------------------------------------------ GRAPHICS %
+    \placeholderpics
+} % ------------------------------------------------------------- END GRAPHICS %
 
-    \tableofcontents
 
-    \section{This is a section}
+\fscontent{ % --------------------------------------------------- MAIN CONTENT %
+    \section{Oh Bugger, This Needs a Title}
     \lipsum[2-3]
-    \section{This is another section}
+    \section{Malaria Comes from \emph{Mal'Aria} (Ital.)}
     \lipsum[4]
-    \section{And another one!}
+    \section{Splendid, Old Chap!}
     \lipsum[5]
+} % ---------------------------------------------------------END MAIN CONTENT %
 
-\end{content}
-% -----------------------------------------------------------END MAIN CONTENT %
-
-% ============================================================== END CONTENT %
-\end{factpage}
+\begin{document}
+    \makefactsheet
 \end{document}
