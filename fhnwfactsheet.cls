@@ -1,5 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fhnwfactsheet}[2017/03/15 v1.0 PDF-LaTeX class for FHNW fact sheets]
+\newif\if@english
+\newif\if@german
+\DeclareOption{english}{\@englishtrue\@germanfalse}
+\DeclareOption{german}{\@germantrue\@englishfalse}
+\ExecuteOptions{english,german}
+\ProcessOptions
+
 \LoadClass{article}
 \pagestyle{empty}
 \RequirePackage{graphicx}
@@ -8,6 +15,15 @@
 \RequirePackage[sfdefault,light,scale=1]{FiraSans}
 \RequirePackage{xcolor}
 \RequirePackage{etoolbox}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\if@english
+    \RequirePackage[english]{babel}
+\fi
+\if@german
+    \RequirePackage[ngerman]{babel}
+\fi
+
 
 \newlength{\factpageouter}
 \newlength{\factpageinner}
@@ -63,7 +79,8 @@
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                      {-3.5ex \@plus -1ex \@minus -.2ex}%
                                      {2.3ex \@plus.2ex}%
-                                     {\normalfont\Large\bfseries}*}
+                                     {\normalfont\large\bfseries}*}
+                                     %{\normalfont\Large\bfseries}*}
 
 
 % -------------------------------------------------------------------------- %
@@ -79,7 +96,7 @@
 
 \definecolor{parties}{HTML}{666666}
 \definecolor{title}{HTML}{AABB00}
-\newcommand*{\authors}[1]{\gdef\@authors{{\footnotesize\color{parties}#1}}}
+\newcommand*{\authors}[1]{\gdef\@authors{{\footnotesize\color{parties}\textbf{Authors: }#1}}}
 \newcommand*{\coaches}[1]{\gdef\@coaches{{\footnotesize\color{parties}#1}}}
 \newcommand*{\expert} [1]{\gdef\@expert {{\footnotesize\color{parties}#1}}}
 \newcommand*{\partner}[1]{\gdef\@partner{{\footnotesize\color{parties}#1}}}

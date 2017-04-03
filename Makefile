@@ -13,6 +13,7 @@ xetex:
 clean:
 	@rm -f $(DOCUMENT).aux
 	@rm -f $(DOCUMENT).log
+	@rm -f $(DOCUMENT).toc
 	@rm -f $(DOCUMENT).pdf
 
 snapshot:
