@@ -17,7 +17,7 @@
 %
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A DRIVER, PROVIDESCLASS ETC. (((
+%^^A DRIVER, PROVIDESCLASS ETC. <<<
 % \iffalse
 %<*driver>
 \ProvidesFile{fhnwfactsheet.dtx}
@@ -51,6 +51,7 @@
     urlcolor=purple]{hyperref}
 \usepackage[light,nott]{kpfonts}
 \usepackage[scaled=0.85]{DejaVuSansMono}
+\usepackage{minted}
 % ------------------------------------------ HELPER MACROS %
 \def\pacname#1{\textsf{#1}}
 \def\fhnwfs{\pacname{fhnwfactsheet}}
@@ -59,15 +60,16 @@
 \def\fhnw{FHNW}
 \def\hten{School of Engineering}
 \def\htde{Hochschule f\"ur Technik}
+\def\code#1{\texttt{#1}}
 \begin{document} % ****************************** DOCUMENT %
     \DocInput{fhnwfactsheet.dtx}
 \end{document}
 %</driver>
 % \fi
-%^^A )))
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A TITLE, ABSTRACT, ToC (((
+%^^A TITLE, ABSTRACT, ToC <<<
 % \GetFileInfo{fhnwfactsheet.dtx}
 % \author{Raphael Frey \\[0.5em] \href{https://github.com/alpenwasser/TeX/}%
 %                                     {\nolinkurl{https://github.com/alpenwasser/TeX/}}}
@@ -87,7 +89,7 @@
 %        the class.
 %   \end{abstract}
 % \else
-%   \title{Die \fhnwfs\ Klasse\thanks{Dieses Dokument entspricht
+%   \title{Die \fhnwfs-Klasse\thanks{Dieses Dokument entspricht
 %          \fhnwfs~\fileversion, datiert~\filedate.}}
 %   \maketitle
 %   \begin{abstract}
@@ -102,33 +104,47 @@
 % \fi
 %
 % \tableofcontents
-%^^A )))
-%
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A INSTALLATION (((
+%^^A INSTALLATION <<<
 % \section{Installation}
 % \label{sec:installation}
 %
 % \ifenglish
-%   This is the English section.
-% \else
-%   Dies ist ein deutscher Abschnitt.
-% \fi
+%    This section deals  with setting up the  \pacname{fhnwfactsheet} class and
+%    setting up  a document  with it. Once you  have generated  the \code{.cls}
+%    class  file and  the \code{.pdf}  documentation  (that is:  this file,  or
+%    its  equivalent  in  another  language),  or  have  received  those  files
+%    from  somebody,  you  will  need  to  place  the  \code{fhnwfactsheet.cls}
+%    file  in  the  directory  of  your  document  and  then  activate  it  via
+%    |\documentclass{fhnwfactsheet}|. See   the   \code{template.tex}  for   an
+%    example.
 %
-% \DescribeMacro{\factpageouter}
-% \ifenglish
-% We define a new length, |\factpageouter|. We can do things with this macro. Many things.
+%    ^^A\inputminted[linenos=true,numbersep=4pt,fontsize=\footnotesize]{tex}{template.tex}
+%   ^^A TODO: File structure tree with the needed files.
 % \else
-% Wir definieren eine neue L\"ange, |\factpageouter|.
+%    Dieser      Abschnitt       erkl\"art      die       Installation      der
+%    \pacname{fhnwfactsheet}-Klasse  und  erl\"autert,  wie  man  ein  Dokument
+%    mit  ihr   einrichtet. Nachdem  man   die  \code{.cls}   Klassendatei  und
+%    die   Dokumentation   (dieses    Dokument,   oder   ein   anderssprachiges
+%    Pendant)   generiert  oder   diese  Dateien   von  einer   anderen  Quelle
+%    erhalten  hat,  muss  man  die  Klassendatei  \code{fhnwfactsheet.cls}  im
+%    selben   Verzeichnis  wie   das   zu   generierende  Dokument   platzieren
+%    und  via   |\documentclass{fhnwfactsheet}|  aktivieren. Siehe   die  Datei
+%    \code{template.tex}, welche mitgeliefert worden sein sollte.
 % \fi
-%
-% \DescribeMacro{\factpageinner}
-% We desribe another macro, |\factpageinner|. We can also do many things with that macro.
-%^^A )))
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A IMPLEMENTATION (((
+%^^A USAGE <<<
+% \ifenglish\section{Usage}\else\section{Anleitung}\fi
+% \label{sec:usage}
+%^^A No options, just a few things to pay attention to: ... list of things
+%^^A >>>
+%
+%^^A ------------------------------------------------------------------------- %
+%^^A IMPLEMENTATION <<<
 % \section{Implementation}
 % \label{sec:implementation}
 %
@@ -152,10 +168,10 @@
 %\fi
 %
 % \Finale
-%^^A )))
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A TEMPLATE (((
+%^^A TEMPLATE <<<
 % \iffalse
 %<*template>
 \documentclass{fhnwfactsheet}
@@ -211,10 +227,10 @@
 \end{document}
 %</template>
 % \fi
-%^^A )))
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A MULTI-LANGUAGE SUPPORT (((
+%^^A MULTI-LANGUAGE SUPPORT <<<
 % \iffalse
 %<*de>
 \expandafter\newif\csname ifenglish\endcsname
@@ -222,10 +238,10 @@
 \input{fhnwfactsheet.dtx}
 %</de>
 % \fi
-%^^A )))
+%^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A CHARACTER TABLE (((
+%^^A CHARACTER TABLE <<<
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -241,6 +257,6 @@
 %   Right bracket \]     Circumflex    \^     Underscore    \_
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
-%^^A )))
+%^^A >>>
 \endinput
-%^^A vim: foldenable foldmethod=marker foldmarker=(((,)))
+%^^A vim: foldenable foldcolumn=2 foldmethod=marker foldmarker=<<<,>>>
