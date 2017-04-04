@@ -166,7 +166,7 @@
 
 \newcommand\fscontent[1]{\gdef\fs@content{#1}}
 \newcommand\fs@makecontent{\par
-    \vspace{1em}\begin{multicols}{3}
+    \vspace{1em}\begin{multicols}{2}
         \ifdef{\fs@content}{\fs@content}\par
     \end{multicols}
 }
@@ -198,7 +198,7 @@
         }
         \begin{tcolorbox}[
                 title=Key Data,
-                width=0.66\textwidth,
+                width=0.75\textwidth,
                 arc=0mm,
                 before=,
                 after=\hfill]
@@ -212,7 +212,7 @@
             hendrerit mollis. Suspendisse ut massa. Cras nec
             ante. Pellentesque a nulla.
         \end{tcolorbox}
-        \begin{minipage}[b]{0.30\textwidth}
+        \begin{minipage}[b]{0.23\textwidth}
             \ifdef{\@team}{\@team}{}\par
             \ifdef{\@coach}{\@coach}{}\par
             \ifdef{\@coaches}{\@coaches}{}\par
