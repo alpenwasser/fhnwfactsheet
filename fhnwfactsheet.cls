@@ -129,14 +129,6 @@
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{1em}
-        \ifdef{\@team}{\@team}{}\par
-        \ifdef{\@coach}{\@coach}{}\par
-        \ifdef{\@coaches}{\@coaches}{}\par
-        \ifdef{\@expert}{\@expert}{}\par
-        \ifdef{\@experts}{\@experts}{}\par
-        \ifdef{\@partner}{\@partner}{}\par
-        \ifdef{\@partners}{\@partners}{}\par
-        \vspace{1em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -204,7 +196,12 @@
             colback=cyan!50!blue!20!white,
             colframe=cyan!50!blue!70!black,
         }
-        \begin{tcolorbox}[width=0.49\textwidth,arc=0mm,before=,after=\hfill]
+        \begin{tcolorbox}[
+                title=Key Data,
+                width=0.66\textwidth,
+                arc=0mm,
+                before=,
+                after=\hfill]
             Nam  dui ligula,  fringilla a,  euismod sodales,
             sol-  licitudin  vel, wisi. Morbi  auctor  lorem
             non  justo.   Nam   lacus  libero,  pretium  at,
@@ -215,17 +212,15 @@
             hendrerit mollis. Suspendisse ut massa. Cras nec
             ante. Pellentesque a nulla.
         \end{tcolorbox}
-        \begin{tcolorbox}[width=0.49\textwidth,arc=0mm,nobeforeafter]
-            Nam  dui ligula,  fringilla a,  euismod sodales,
-            sol-  licitudin  vel, wisi. Morbi  auctor  lorem
-            non  justo.   Nam   lacus  libero,  pretium  at,
-            lobortis  vitae, ul-  tricies et,  tellus. Donec
-            aliquet,   tortor  sed   ac-  cumsan   bibendum,
-            erat  ligula  aliquet   magna,  vi-  tae  ornare
-            odio  metus   a  mi. Morbi   ac  orci   et  nisl
-            hendrerit mollis. Suspendisse ut massa. Cras nec
-            ante. Pellentesque a nulla.
-        \end{tcolorbox}
+        \begin{minipage}[b]{0.30\textwidth}
+            \ifdef{\@team}{\@team}{}\par
+            \ifdef{\@coach}{\@coach}{}\par
+            \ifdef{\@coaches}{\@coaches}{}\par
+            \ifdef{\@expert}{\@expert}{}\par
+            \ifdef{\@experts}{\@experts}{}\par
+            \ifdef{\@partner}{\@partner}{}\par
+            \ifdef{\@partners}{\@partners}{}\par
+        \end{minipage}
     \end{factpage}
 }
 
