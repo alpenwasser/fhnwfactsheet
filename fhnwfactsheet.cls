@@ -129,14 +129,6 @@
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{1em}
-        \ifdef{\@team}{\@team}{}\par
-        \ifdef{\@coach}{\@coach}{}\par
-        \ifdef{\@coaches}{\@coaches}{}\par
-        \ifdef{\@expert}{\@expert}{}\par
-        \ifdef{\@experts}{\@experts}{}\par
-        \ifdef{\@partner}{\@partner}{}\par
-        \ifdef{\@partners}{\@partners}{}\par
-        \vspace{1em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -211,14 +203,18 @@
             \end{tabular}
         \end{tcolorbox}
 
-        \vspace{1em}
+        % \vfill does not work here. Maybe measure height of things with
+        % environ package and calculate the needed vspace?
+        % http://tex.stackexchange.com/a/356746
+        \vspace{17em}
 
-        \begin{tikzpicture}[x=\textwidth,y=\textwidth,draw=black!50!white,very thick]
-            \draw (0,0) -- (1,1);
-            \draw (0,1) -- (1,0);
-            \draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
-            \node[align=center,text width=30mm,draw,fill=white] at (0.5,0.5) {\large Small picture or something else};
-        \end{tikzpicture}
+        \ifdef{\@team}{\@team}{}\par
+        \ifdef{\@coach}{\@coach}{}\par
+        \ifdef{\@coaches}{\@coaches}{}\par
+        \ifdef{\@expert}{\@expert}{}\par
+        \ifdef{\@experts}{\@experts}{}\par
+        \ifdef{\@partner}{\@partner}{}\par
+        \ifdef{\@partners}{\@partners}{}\par
     \end{minipage}
 }
 
