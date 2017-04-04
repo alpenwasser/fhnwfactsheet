@@ -174,9 +174,52 @@
 
 \newcommand\fscontent[1]{\gdef\fs@content{#1}}
 \newcommand\fs@makecontent{\par
-    \vspace{1em}\begin{multicols}{3}
-        \ifdef{\fs@content}{\fs@content}\par
-    \end{multicols}
+    \vspace{1em}\begin{minipage}[t][][b]{0.73\textwidth}
+        \begin{multicols}{2}
+            \ifdef{\fs@content}{\fs@content}\par
+        \end{multicols}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][][b]{0.25\textwidth}
+        \tcbset{
+            colback=cyan!50!blue!20!white,
+            colframe=cyan!50!blue!70!black,
+        }
+        \begin{tcolorbox}[
+                boxsep=0pt,
+                left=2pt,
+                title=Key Info 1,
+                width=\textwidth,
+                arc=0mm,
+                before=,after=\hfill]
+            \footnotesize
+            \begin{tabular}{p{17mm}p{17mm}}
+                \scshape Category 1      & Key Point 1\\
+                                         & Key Point 2\\
+                                         & Key Point 3\\[1ex]
+                \scshape Longer Category & Key Point 4 with some more text \\
+                                         & Key Point 5\\
+                                         & Key Point 6\\
+                                         & Key Point 7\\
+                                         & Key Point 8\\[1ex]
+                \scshape Category 1      & Key Point 9\\
+                                         & Key Point 10\\
+                                         & Key Point 11\\
+                                         & Key Point 12\\
+                                         & Key Point 13\\
+                                         & Key Point 14\\[1ex]
+            \end{tabular}
+        \end{tcolorbox}
+
+        \vspace{1em}
+
+        \begin{tikzpicture}[x=\textwidth,y=\textwidth,draw=black!50!white,very thick]
+            \draw (0,0) -- (1,1);
+            \draw (0,1) -- (1,0);
+            \draw (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+            \node[align=center,text width=30mm,draw,fill=white] at (0.5,0.5) {\large Small picture or something else};
+        \end{tikzpicture}
+    \end{minipage}
 }
 
 \newcommand\fssummary[1]{\gdef\fs@summary{#1}}
@@ -200,28 +243,28 @@
         \fs@makesummary
         \fs@makegraphics
         \fs@makecontent
-        \tcbset{
-            colback=cyan!50!blue!20!white,
-            colframe=cyan!50!blue!70!black,
-        }
-        \begin{tcolorbox}[title=Key Info 1,width=0.49\textwidth,arc=0mm,before=,after=\hfill]
-            Nam  dui ligula,  fringilla a,  euismod sodales,
-            sol-  licitudin  vel, wisi. Morbi  auctor  lorem
-            non  justo.   Nam   lacus  libero,  pretium  at,
-            lobortis  vitae, ul-  tricies et,  tellus. Donec
-            aliquet,   tortor  sed   ac-  cumsan   bibendum,
-            erat  ligula  aliquet   magna,  vi-  tae  ornare
-            odio  metus   a  mi.
-        \end{tcolorbox}
-        \begin{tcolorbox}[title=Key Info 2,width=0.49\textwidth,arc=0mm,nobeforeafter]
-            Nam  dui ligula,  fringilla a,  euismod sodales,
-            sol-  licitudin  vel, wisi. Morbi  auctor  lorem
-            non  justo.   Nam   lacus  libero,  pretium  at,
-            lobortis  vitae, ul-  tricies et,  tellus. Donec
-            aliquet,   tortor  sed   ac-  cumsan   bibendum,
-            erat  ligula  aliquet   magna,  vi-  tae  ornare
-            odio  metus   a  mi.
-        \end{tcolorbox}
+        %\tcbset{
+        %    colback=cyan!50!blue!20!white,
+        %    colframe=cyan!50!blue!70!black,
+        %}
+        %\begin{tcolorbox}[title=Key Info 1,width=0.49\textwidth,arc=0mm,before=,after=\hfill]
+        %    Nam  dui ligula,  fringilla a,  euismod sodales,
+        %    sol-  licitudin  vel, wisi. Morbi  auctor  lorem
+        %    non  justo.   Nam   lacus  libero,  pretium  at,
+        %    lobortis  vitae, ul-  tricies et,  tellus. Donec
+        %    aliquet,   tortor  sed   ac-  cumsan   bibendum,
+        %    erat  ligula  aliquet   magna,  vi-  tae  ornare
+        %    odio  metus   a  mi.
+        %\end{tcolorbox}
+        %\begin{tcolorbox}[title=Key Info 2,width=0.49\textwidth,arc=0mm,nobeforeafter]
+        %    Nam  dui ligula,  fringilla a,  euismod sodales,
+        %    sol-  licitudin  vel, wisi. Morbi  auctor  lorem
+        %    non  justo.   Nam   lacus  libero,  pretium  at,
+        %    lobortis  vitae, ul-  tricies et,  tellus. Donec
+        %    aliquet,   tortor  sed   ac-  cumsan   bibendum,
+        %    erat  ligula  aliquet   magna,  vi-  tae  ornare
+        %    odio  metus   a  mi.
+        %\end{tcolorbox}
     \end{factpage}
 }
 
