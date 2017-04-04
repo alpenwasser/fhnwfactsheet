@@ -132,16 +132,8 @@
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
-        \global\let\authors\relax
-        \global\let\coaches\relax
-        \global\let\expert\relax
-        \global\let\partner\relax
         \global\let\date\relax
         \global\let\@title\@empty
-        \global\let\@authors\@empty
-        \global\let\@coaches\@empty
-        \global\let\@expert\@empty
-        \global\let\@partner\@empty
         \global\let\@date\@empty
     \endgroup
 }
@@ -223,5 +215,4 @@
         \end{minipage}
     \end{factpage}
 }
-
 %\newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
