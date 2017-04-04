@@ -128,7 +128,7 @@
     }{}
     \begingroup
         {\Huge\color{title}\@title}\par
-        \vspace{1em}
+        \vspace{3em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -175,7 +175,7 @@
 \newcommand\fs@makesummary{\par
     \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
         \ifdef{\fs@summary}{\color{cyan!50!blue!70!black}\fs@summary}\par
-    \end{minipage}
+    \end{minipage}\vspace{1em}
 }
 
 \newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
