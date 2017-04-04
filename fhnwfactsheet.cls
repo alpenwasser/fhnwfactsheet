@@ -1,5 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fhnwfactsheet}[2017/03/15 v1.0 PDF-LaTeX class for FHNW fact sheets]
+% Class Options
 \newif\if@english
 \newif\if@german
 \DeclareOption{english}{\@englishtrue\@germanfalse}
@@ -8,6 +9,7 @@
 \ExecuteOptions{english,german,deutsch}
 \ProcessOptions
 
+% Packages
 \LoadClass{article}
 \pagestyle{empty}
 \RequirePackage{graphicx}
@@ -26,6 +28,7 @@
     \RequirePackage[ngerman]{babel}
 \fi
 
+% Page Geometry
 \geometry{a4paper,twoside=false}
 \newlength{\factpageouter}
 \newlength{\factpageinner}
@@ -77,9 +80,10 @@
 \let\paragraph\@undefined
 \let\subparagraph\@undefined
 
-% Redefine Title Command
+% Define document colos palette
 \definecolor{parties}{HTML}{666666}
 \definecolor{title}{HTML}{EEBB00}
+% Define language-specific terms.
 \iflanguage{english}{%
     \newcommand*{\lang@team}  {\textbf{Project Team: }}
     \newcommand*{\lang@coach}   {\textbf{Coach: }}
@@ -99,6 +103,7 @@
     \newcommand*{\lang@partners}{\textbf{Industriepartner: }}
 }{}
 
+% Save those terms in the appropriate macros.
 \newcommand*{\team}    [1]{\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
 \newcommand*{\coach}   [1]{\gdef\@coach   {{\footnotesize\color{parties}\lang@coach#1}}}
 \newcommand*{\coaches} [1]{\gdef\@coaches {{\footnotesize\color{parties}\lang@coaches#1}}}
@@ -108,6 +113,7 @@
 \newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
 
 \renewcommand\maketitle{\par
+    % Check if conflicting fields have been specified. Throw error if that is the case.
     \ifdef{\@coach}{%
         \ifdef{\@coaches}{%
             \ClassError{fhnwfactsheet}{Both 'coach' and 'coaches' field defined. Undefine one.}
@@ -126,6 +132,7 @@
                 {Both the 'partner' and the 'partners' field are defined. Only one of them should be.}
         }{}
     }{}
+    % Print the title.
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{1em}
@@ -172,28 +179,34 @@
     {\footnotesize Beautiful Picture and Amazing Graphics}
 }
 
+% Store the concents of \fssummary in \fs@content
 \newcommand\fscontent[1]{\gdef\fs@content{#1}}
+% Print the contents of \fs@content
 \newcommand\fs@makecontent{\par
     \vspace{1em}\begin{multicols}{3}
         \ifdef{\fs@content}{\fs@content}\par
     \end{multicols}
 }
 
+% Store the concents of \fssummary in \fs@summary
 \newcommand\fssummary[1]{\gdef\fs@summary{#1}}
+% Print the contents of \fs@summary
 \newcommand\fs@makesummary{\par
     \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
         \ifdef{\fs@summary}{\color{cyan!50!blue!70!black}\fs@summary}\par
     \end{minipage}
 }
 
+% Store the content of \fsgraphics in \fs@graphics
 \newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
+% Print the contents of \fs@graphics
 \newcommand\fs@makegraphics{\par
     \vspace{1em}\noindent\begin{minipage}{\textwidth}\Large
         \ifdef{\fs@graphics}{\fs@graphics}\par
     \end{minipage}
 }
 
-\newcommand\factsheet[1]{\gdef\@factsheet{#1}}
+% Output Routine
 \newcommand\makefactsheet{
     \begin{factpage}
         \maketitle
@@ -224,5 +237,4 @@
         \end{tcolorbox}
     \end{factpage}
 }
-
 %\newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
