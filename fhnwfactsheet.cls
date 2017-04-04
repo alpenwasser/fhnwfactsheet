@@ -129,6 +129,14 @@
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{1em}
+        \ifdef{\@team}{\@team}{}\par
+        \ifdef{\@coach}{\@coach}{}\par
+        \ifdef{\@coaches}{\@coaches}{}\par
+        \ifdef{\@expert}{\@expert}{}\par
+        \ifdef{\@experts}{\@experts}{}\par
+        \ifdef{\@partner}{\@partner}{}\par
+        \ifdef{\@partners}{\@partners}{}\par
+        \vspace{1em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -198,7 +206,6 @@
         }
         \begin{tcolorbox}[
                 title=Key Data,
-                width=0.75\textwidth,
                 arc=0mm,
                 before=,
                 after=\hfill]
@@ -212,15 +219,6 @@
             hendrerit mollis. Suspendisse ut massa. Cras nec
             ante. Pellentesque a nulla.
         \end{tcolorbox}
-        \begin{minipage}[b]{0.23\textwidth}
-            \ifdef{\@team}{\@team}{}\par
-            \ifdef{\@coach}{\@coach}{}\par
-            \ifdef{\@coaches}{\@coaches}{}\par
-            \ifdef{\@expert}{\@expert}{}\par
-            \ifdef{\@experts}{\@experts}{}\par
-            \ifdef{\@partner}{\@partner}{}\par
-            \ifdef{\@partners}{\@partners}{}\par
-        \end{minipage}
     \end{factpage}
 }
 
