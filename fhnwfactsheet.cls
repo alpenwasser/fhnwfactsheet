@@ -129,14 +129,6 @@
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{1em}
-        \ifdef{\@team}{\@team}{}\par
-        \ifdef{\@coach}{\@coach}{}\par
-        \ifdef{\@coaches}{\@coaches}{}\par
-        \ifdef{\@expert}{\@expert}{}\par
-        \ifdef{\@experts}{\@experts}{}\par
-        \ifdef{\@partner}{\@partner}{}\par
-        \ifdef{\@partners}{\@partners}{}\par
-        \vspace{1em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -199,6 +191,16 @@
         \end{tikzpicture}
 
         Honorable Second Author
+
+        \vspace{1em}
+
+        \ifdef{\@team}{\@team}{}\par
+        \ifdef{\@coach}{\@coach}{}\par
+        \ifdef{\@coaches}{\@coaches}{}\par
+        \ifdef{\@expert}{\@expert}{}\par
+        \ifdef{\@experts}{\@experts}{}\par
+        \ifdef{\@partner}{\@partner}{}\par
+        \ifdef{\@partners}{\@partners}{}\par
     \end{minipage}
 }
 
