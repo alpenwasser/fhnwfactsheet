@@ -135,28 +135,12 @@
     % Print the title.
     \begingroup
         {\Huge\color{title}\@title}\par
-        \vspace{1em}
-        \ifdef{\@team}{\@team}{}\par
-        \ifdef{\@coach}{\@coach}{}\par
-        \ifdef{\@coaches}{\@coaches}{}\par
-        \ifdef{\@expert}{\@expert}{}\par
-        \ifdef{\@experts}{\@experts}{}\par
-        \ifdef{\@partner}{\@partner}{}\par
-        \ifdef{\@partners}{\@partners}{}\par
-        \vspace{1em}
+        \vspace{3em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
-        \global\let\authors\relax
-        \global\let\coaches\relax
-        \global\let\expert\relax
-        \global\let\partner\relax
         \global\let\date\relax
         \global\let\@title\@empty
-        \global\let\@authors\@empty
-        \global\let\@coaches\@empty
-        \global\let\@expert\@empty
-        \global\let\@partner\@empty
         \global\let\@date\@empty
     \endgroup
 }
@@ -194,7 +178,7 @@
 \newcommand\fs@makesummary{\par
     \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
         \ifdef{\fs@summary}{\color{cyan!50!blue!70!black}\fs@summary}\par
-    \end{minipage}
+    \end{minipage}\vspace{1em}
 }
 
 % Store the content of \fsgraphics in \fs@graphics
@@ -217,6 +201,7 @@
             colback=cyan!50!blue!20!white,
             colframe=cyan!50!blue!70!black,
         }
+<<<<<<< HEAD
         \begin{tcolorbox}[title=Key Info 1,width=0.49\textwidth,arc=0mm,before=,after=\hfill]
             Nam  dui ligula,  fringilla a,  euismod sodales,
             sol-  licitudin  vel, wisi. Morbi  auctor  lorem
@@ -227,6 +212,14 @@
             odio  metus   a  mi.
         \end{tcolorbox}
         \begin{tcolorbox}[title=Key Info 2,width=0.49\textwidth,arc=0mm,nobeforeafter]
+=======
+        \begin{tcolorbox}[
+                title=Key Data,
+                width=0.66\textwidth,
+                arc=0mm,
+                before=,
+                after=\hfill]
+>>>>>>> parties-bottom
             Nam  dui ligula,  fringilla a,  euismod sodales,
             sol-  licitudin  vel, wisi. Morbi  auctor  lorem
             non  justo.   Nam   lacus  libero,  pretium  at,
@@ -235,6 +228,15 @@
             erat  ligula  aliquet   magna,  vi-  tae  ornare
             odio  metus   a  mi.
         \end{tcolorbox}
+        \begin{minipage}[b]{0.30\textwidth}
+            \ifdef{\@team}{\@team}{}\par
+            \ifdef{\@coach}{\@coach}{}\par
+            \ifdef{\@coaches}{\@coaches}{}\par
+            \ifdef{\@expert}{\@expert}{}\par
+            \ifdef{\@experts}{\@experts}{}\par
+            \ifdef{\@partner}{\@partner}{}\par
+            \ifdef{\@partners}{\@partners}{}\par
+        \end{minipage}
     \end{factpage}
 }
 %\newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
