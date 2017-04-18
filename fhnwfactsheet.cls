@@ -201,25 +201,12 @@
             colback=cyan!50!blue!20!white,
             colframe=cyan!50!blue!70!black,
         }
-<<<<<<< HEAD
-        \begin{tcolorbox}[title=Key Info 1,width=0.49\textwidth,arc=0mm,before=,after=\hfill]
-            Nam  dui ligula,  fringilla a,  euismod sodales,
-            sol-  licitudin  vel, wisi. Morbi  auctor  lorem
-            non  justo.   Nam   lacus  libero,  pretium  at,
-            lobortis  vitae, ul-  tricies et,  tellus. Donec
-            aliquet,   tortor  sed   ac-  cumsan   bibendum,
-            erat  ligula  aliquet   magna,  vi-  tae  ornare
-            odio  metus   a  mi.
-        \end{tcolorbox}
-        \begin{tcolorbox}[title=Key Info 2,width=0.49\textwidth,arc=0mm,nobeforeafter]
-=======
         \begin{tcolorbox}[
                 title=Key Data,
                 width=0.66\textwidth,
                 arc=0mm,
                 before=,
                 after=\hfill]
->>>>>>> parties-bottom
             Nam  dui ligula,  fringilla a,  euismod sodales,
             sol-  licitudin  vel, wisi. Morbi  auctor  lorem
             non  justo.   Nam   lacus  libero,  pretium  at,
