@@ -253,6 +253,7 @@
       \leavevmode 
       \advance\leftskip\@tempdima
       \hskip -\leftskip
+      %\@dottedtocline{0}{0em}{0em}{#1}{#2}\par
       #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
       \penalty\@highpenalty
     \endgroup
@@ -260,7 +261,7 @@
 
 %\setlength\parindent{0mm}
 %\newcommand*\includefactsheet[1]{\mbox{\input{#1}\makefactsheet}}
-\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet}
+\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet\newpage}
 
 % Output Routine
 \newcommand\makefactsheet{
