@@ -10,14 +10,15 @@
 \ProcessOptions
 
 % Packages
-\LoadClass{article}
+\LoadClass{report}
 \pagestyle{empty}
 \RequirePackage{graphicx}
 \RequirePackage{multicol}
 \RequirePackage{geometry}
-\RequirePackage[sfdefault,light,scale=1]{FiraSans}
+%\RequirePackage[sfdefault,light,scale=1]{FiraSans}
+\RequirePackage[scaled=0.95]{helvet}
+\renewcommand\familydefault{\sfdefault}
 \RequirePackage{xcolor}
-\RequirePackage{etoolbox}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{tcolorbox}
@@ -37,10 +38,10 @@
 \newlength{\factpagewidth}
 \newlength{\factgraphicswidth}
 \newlength{\testl}
-\setlength{\factpageouter}{15mm}
-\setlength{\factpageinner}{15mm}
-\setlength{\factpagetop}{10mm}
-\setlength{\factpagebottom}{15mm}
+\setlength{\factpageouter}{25mm}
+\setlength{\factpageinner}{25mm}
+\setlength{\factpagetop}{15mm}
+\setlength{\factpagebottom}{20mm}
 \setlength{\factpagewidth}{\paperwidth}
 \addtolength{\factpagewidth}{-\factpageinner}
 \addtolength{\factpagewidth}{-\factpageouter}
