@@ -12,6 +12,8 @@
 % Packages
 \LoadClass{report}
 \pagestyle{empty}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
 \RequirePackage{multicol}
 \RequirePackage{geometry}
@@ -19,9 +21,15 @@
 \RequirePackage[scaled=0.95]{helvet}
 \renewcommand\familydefault{\sfdefault}
 \RequirePackage{xcolor}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
+% Define document colos palette
+\definecolor{parties}{HTML}{666666}
+\definecolor{title}{HTML}{000066}
+\definecolor{summary}{HTML}{666666}
+\colorlet{boxbg}{cyan!50!blue!20!white}
 \RequirePackage{tcolorbox}
+\RequirePackage[%
+    hidelinks=true,
+    bookmarksnumbered=true]{hyperref}
 \if@english
     \RequirePackage[english]{babel}
 \fi
@@ -41,7 +49,7 @@
 \setlength{\factpageouter}{25mm}
 \setlength{\factpageinner}{25mm}
 \setlength{\factpagetop}{15mm}
-\setlength{\factpagebottom}{20mm}
+\setlength{\factpagebottom}{15mm}
 \setlength{\factpagewidth}{\paperwidth}
 \addtolength{\factpagewidth}{-\factpageinner}
 \addtolength{\factpagewidth}{-\factpageouter}
@@ -55,8 +63,9 @@
 % to zero so that  it stays on the first page no matter  how much content is %
 % put inside it.                                                             %
 % -------------------------------------------------------------------------- %
+    %{\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
 \newenvironment{factpage}
-    {\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
+    {\noindent\begin{minipage}[t][746pt]{\factpagewidth}}
     {\end{minipage}}
 
 % -------------------------------------------------------------------------- %
@@ -67,7 +76,7 @@
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                      {-2.5ex \@plus -1ex \@minus -.2ex}%
                                      {1ex \@plus.2ex}%
-                                     {\fontfamily{jkpss}\selectfont\color{cyan!50!blue!70!black}}*}
+                                     {\fontfamily{jkpss}\selectfont\color{title}}*}
                                      %{\normalfont\normalsize\bfseries}*}
                                      %{\normalfont\Large\bfseries}*}
 
@@ -81,9 +90,6 @@
 \let\paragraph\@undefined
 \let\subparagraph\@undefined
 
-% Define document colos palette
-\definecolor{parties}{HTML}{666666}
-\definecolor{title}{HTML}{EEBB00}
 % Define language-specific terms.
 \iflanguage{english}{%
     \newcommand*{\lang@team}  {\textbf{Project Team: }}
@@ -114,26 +120,6 @@
 \newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
 
 \renewcommand\maketitle{\par
-    % Check if conflicting fields have been specified. Throw error if that is the case.
-    \ifdef{\@coach}{%
-        \ifdef{\@coaches}{%
-            \ClassError{fhnwfactsheet}{Both 'coach' and 'coaches' field defined. Undefine one.}
-                {Both the 'coach' and the 'coaches' field are defined. Only one of them should be.}
-        }{}
-    }{}
-    \ifdef{\@expert}{%
-        \ifdef{\@experts}{%
-            \ClassError{fhnwfactsheet}{Both 'expert' and 'experts' field defined. Undefine one.}
-                {Both the 'expert' and the 'experts' field are defined. Only one of them should be.}
-        }{}
-    }{}
-    \ifdef{\@partner}{%
-        \ifdef{\@partners}{%
-            \ClassError{fhnwfactsheet}{Both 'partner' and 'partners' field defined. Undefine one.}
-                {Both the 'partner' and the 'partners' field are defined. Only one of them should be.}
-        }{}
-    }{}
-    % Print the title.
     \begingroup
         {\Huge\color{title}\@title}\par
         \vspace{3em}
@@ -146,9 +132,9 @@
     \endgroup
 }
 
+\newlength{\placeholderbase}
 \newcommand\placeholderpics{%
-    \newlength{\placeholderbase}
-    \setlength{\placeholderbase}{55mm}
+    \setlength{\placeholderbase}{48mm}
     \begin{tikzpicture}[x=\placeholderbase,y=\placeholderbase,draw=black!50!white,very thick]
         \draw (0,0) -- (1.618,1);
         \draw (0,1) -- (1.618,0);
@@ -160,7 +146,7 @@
         \draw (0,1) -- (1.618,0);
         \draw (0,0) -- (1.618,0) -- (1.618,1) -- (0,1) -- cycle;
         \node[draw,fill=white] at (0.809,0.5) {\large Amazing Graphics!};
-    \end{tikzpicture}
+    \end{tikzpicture}\par
     {\footnotesize Beautiful Picture and Amazing Graphics}
 }
 
@@ -178,7 +164,7 @@
 % Print the contents of \fs@summary
 \newcommand\fs@makesummary{\par
     \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
-        \ifdef{\fs@summary}{\color{cyan!50!blue!70!black}\fs@summary}\par
+        \ifdef{\fs@summary}{\color{summary}\fs@summary}\par
     \end{minipage}\vspace{1em}
 }
 
@@ -191,16 +177,106 @@
     \end{minipage}
 }
 
+\newcommand\fs@checkinput{%
+    \ifdef{\@coach}{%
+        \ifdef{\@coaches}{%
+            \ClassError{fhnwfactsheet}{Both 'coach' and 'coaches' field defined. Undefine one.}
+                {Both the 'coach' and the 'coaches' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+    \ifdef{\@expert}{%
+        \ifdef{\@experts}{%
+            \ClassError{fhnwfactsheet}{Both 'expert' and 'experts' field defined. Undefine one.}
+                {Both the 'expert' and the 'experts' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+    \ifdef{\@partner}{%
+        \ifdef{\@partners}{%
+            \ClassError{fhnwfactsheet}{Both 'partner' and 'partners' field defined. Undefine one.}
+                {Both the 'partner' and the 'partners' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+}
+
+%\def\@schapter#1{\if@twocolumn
+%                   \@topnewpage[\@makeschapterhead{#1}]%
+%                 \else
+%                   \@makeschapterhead{#1}%
+%                   \@afterheading
+%                 \fi}
+
+% Taken mostly from 'classes.dtx'
+\renewcommand\chapter{%\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addcontentsline{toc}{chapter}{#1}%
+                                   %{\protect\numberline{\thechapter}#1}%
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\def\@makechapterhead#1{%
+    \begingroup
+        {\Huge\color{title}#1}\par
+        \vspace{3em}
+    \endgroup
+}
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge\color{title} #1\par\nobreak
+    \vskip 40\p@
+  }}
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode 
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+%\setlength\parindent{0mm}
+%\newcommand*\includefactsheet[1]{\mbox{\input{#1}\makefactsheet}}
+\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet}
+
 % Output Routine
 \newcommand\makefactsheet{
     \begin{factpage}
-        \maketitle
+        \fs@checkinput
+        \chapter{\@title}
+        % Must be after \chapter
+        % Note: We do not want to overwrite the \chapter pagestyle{plain} everywhere.
+        \thispagestyle{empty}
         \fs@makesummary
         \fs@makegraphics
         \fs@makecontent
+        \vfill
         \tcbset{
-            colback=cyan!50!blue!20!white,
-            colframe=cyan!50!blue!70!black,
+            colback=boxbg,
+            colframe=title,
         }
         \begin{tcolorbox}[
                 title=Key Data,
@@ -225,6 +301,14 @@
             \ifdef{\@partner}{\@partner}{}\par
             \ifdef{\@partners}{\@partners}{}\par
         \end{minipage}
+        \thepage
     \end{factpage}
+    % Undefine for next fact sheet
+    \let\@team\@undefined
+    \let\@coach\@undefined
+    \let\@coaches\@undefined
+    \let\@expert\@undefined
+    \let\@experts\@undefined
+    \let\@partner\@undefined
+    \let\@partners\@undefined
 }
-%\newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
