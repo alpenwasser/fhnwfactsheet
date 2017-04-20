@@ -11,7 +11,6 @@
 
 % Packages
 \LoadClass{report}
-\pagestyle{empty}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
@@ -27,6 +26,7 @@
 \definecolor{summary}{HTML}{666666}
 \colorlet{boxbg}{cyan!50!blue!20!white}
 \RequirePackage{tcolorbox}
+\RequirePackage{booktabs}
 \RequirePackage[%
     hidelinks=true,
     bookmarksnumbered=true]{hyperref}
@@ -49,7 +49,7 @@
 \setlength{\factpageouter}{25mm}
 \setlength{\factpageinner}{25mm}
 \setlength{\factpagetop}{15mm}
-\setlength{\factpagebottom}{15mm}
+\setlength{\factpagebottom}{30mm} % Needed so that page numbers do not slide down too far.
 \setlength{\factpagewidth}{\paperwidth}
 \addtolength{\factpagewidth}{-\factpageinner}
 \addtolength{\factpagewidth}{-\factpageouter}
@@ -177,6 +177,24 @@
     \end{minipage}
 }
 
+% Store the content of \infobox
+\newcommand\infobox[2]{%
+    \gdef\fs@infoboxtitle{#1}%
+    \gdef\fs@infoboxcontent{#2}%
+}
+\newcommand\fs@makeinfobox{
+    \begin{tcolorbox}[
+            title=\fs@infoboxtitle,
+            width=0.66\textwidth,
+            arc=0mm,
+            before=,
+            after=\hfill]
+        \fs@infoboxcontent
+    \end{tcolorbox}
+}
+\newcommand\tightlist{%
+    \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}%
+}
 \newcommand\fs@checkinput{%
     \ifdef{\@coach}{%
         \ifdef{\@coaches}{%
@@ -196,8 +214,17 @@
                 {Both the 'partner' and the 'partners' field are defined. Only one of them should be.}
         }{}%
     }{}%
+    \ifdef{\fs@infoboxcontent}{}
+        {%
+            \ClassError{fhnwfactsheet}{Did you forget to specify your infobox?}
+            {The infobox contents are not defined. Make sure your infobox command is properly called.}
+        }%
+    \ifdef{\fs@infoboxtitle}{}
+        {%
+            \ClassError{fhnwfactsheet}{Did you forget to specify your infobox?}
+            {The infobox title is not defined. Make sure your infobox command is properly called.}
+        }%
 }
-
 %\def\@schapter#1{\if@twocolumn
 %                   \@topnewpage[\@makeschapterhead{#1}]%
 %                 \else
@@ -279,20 +306,7 @@
             colback=boxbg,
             colframe=title,
         }
-        \begin{tcolorbox}[
-                title=Key Data,
-                width=0.66\textwidth,
-                arc=0mm,
-                before=,
-                after=\hfill]
-            Nam  dui ligula,  fringilla a,  euismod sodales,
-            sol-  licitudin  vel, wisi. Morbi  auctor  lorem
-            non  justo.   Nam   lacus  libero,  pretium  at,
-            lobortis  vitae, ul-  tricies et,  tellus. Donec
-            aliquet,   tortor  sed   ac-  cumsan   bibendum,
-            erat  ligula  aliquet   magna,  vi-  tae  ornare
-            odio  metus   a  mi.
-        \end{tcolorbox}
+        \fs@makeinfobox
         \begin{minipage}[b]{0.30\textwidth}
             \ifdef{\@team}{\@team}{}\par
             \ifdef{\@coach}{\@coach}{}\par
@@ -302,8 +316,7 @@
             \ifdef{\@partner}{\@partner}{}\par
             \ifdef{\@partners}{\@partners}{}\par
         \end{minipage}
-        \thepage
-    \end{factpage}
+    \end{factpage}\thepage
     % Undefine for next fact sheet
     \let\@team\@undefined
     \let\@coach\@undefined
@@ -312,4 +325,6 @@
     \let\@experts\@undefined
     \let\@partner\@undefined
     \let\@partners\@undefined
+    \let\fs@infoboxtitle\@undefined
+    \let\fs@infoboxcontent\@undefined
 }
