@@ -3,8 +3,9 @@ dtx
 images
 resources
 fhnwfactsheet.cls
-Main.aux
-Main.log
+*.aux
+*.log
+*.toc
+*.out
+partial.pdf
 Main.pdf
-Main.toc
-Main.out

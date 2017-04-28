@@ -1,0 +1,31 @@
+\documentclass[german]{fhnwfactsheet}
+
+\begin{document}
+% -------------------------------------------------------------------- TITLEPAGE
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=10mm,yshift=-5mm,anchor=north west]
+        at (current page.north west)
+        {\includegraphics[height=10mm]{logo-top}};
+
+    \node[font=\Huge\scshape,align=center]
+        at (current page.center)
+        {Projekte des Fr\"uhlingssemesters\\ 2017 im Studiengang EIT};
+\end{tikzpicture}
+\clearpage
+
+% -------------------------------------------------------------- TOC, INTRO ETC.
+\pagenumbering{roman}
+\tableofcontents
+
+\chapter*{Vorwort}
+
+% ----------------------------------------------------------------- MAIN CONTENT
+\newpage\pagenumbering{arabic}
+
+\includefactsheet{batcaptureContent.tex}
+\includefactsheet{batrecContent.tex}
+\includefactsheet{sonartContent.tex}
+\includefactsheet{uponeContent.tex}
+\includefactsheet{wboxContent.tex}
+\end{document}

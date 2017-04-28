@@ -65,7 +65,8 @@
 % -------------------------------------------------------------------------- %
     %{\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
 \newenvironment{factpage}
-    {\noindent\begin{minipage}[t][746pt]{\factpagewidth}}
+    {\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
+    %{\noindent\begin{minipage}[t][746pt]{\factpagewidth}}
     {\end{minipage}}
 
 % -------------------------------------------------------------------------- %
