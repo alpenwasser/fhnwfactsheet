@@ -13,7 +13,7 @@
 % -------------------------------------------------------- %
 % \fi
 %
-%\CheckSum{0}
+%\CheckSum{615}
 %
 %
 %^^A ------------------------------------------------------------------------- %
@@ -25,7 +25,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesClass{fhnwfactsheet}%
 %<*class>
-    [2017/03/15 v1.0.0 PDF-LaTeX class for FHNW fact sheets]
+    [2017/05/28 v0.9.0 PDF-LaTeX class for FHNW fact sheets]
 %</class>
 %<*driver>
 \expandafter\ifx\csname ifenglish\endcsname\relax
@@ -51,7 +51,7 @@
     urlcolor=purple]{hyperref}
 \usepackage[light,nott]{kpfonts}
 \usepackage[scaled=0.85]{DejaVuSansMono}
-\usepackage{minted}
+\usepackage{dirtree}
 % ------------------------------------------ HELPER MACROS %
 \def\pacname#1{\textsf{#1}}
 \def\fhnwfs{\pacname{fhnwfactsheet}}
@@ -71,8 +71,8 @@
 %^^A ------------------------------------------------------------------------- %
 %^^A TITLE, ABSTRACT, ToC <<<
 % \GetFileInfo{fhnwfactsheet.dtx}
-% \author{Raphael Frey \\[0.5em] \href{https://github.com/alpenwasser/TeX/}%
-%                                     {\nolinkurl{https://github.com/alpenwasser/TeX/}}}
+% \author{Raphael Frey \\[0.5em] \href{https://github.com/alpenwasser/fhnwfactsheet/}%
+%                                     {\nolinkurl{https://github.com/alpenwasser/fhnwfactsheet/}}}
 %
 % \ifenglish
 %   \title{The \fhnwfs\ Class\thanks{This document corresponds
@@ -107,47 +107,564 @@
 %^^A >>>
 %
 %^^A ------------------------------------------------------------------------- %
-%^^A Philosophy <<<
-% \ifenglish\section{Philosophy}\else\section{Philosophie}\fi
-% \label{sec:philosophy}
-% Basic Ideas (integrating into larger document, not much flexibility,
-% cohesive look etc.)
+%^^A Basic Concept <<<
+% \ifenglish
+%    \section{Basic Concept}
+%    \label{sec:concept}
+%    The class allows  to build indivitual standalone fact sheets  as well as a
+%    larger  document  containing  multiple  factsheets  as  a  collection, including
+%    a title page, a table of contents etc. The underlying structure in both scenarios
+%    is identical:
+%    \dirtree{%^^A
+%        .1 Master Document.
+%        .2 Content Document.
+%        .3 Further Ressources (e.g.~images).
+%    }
+%    \emph{Note:} 
+%    \begin{itemize}
+%        \item
+%        \textsf{fhnwfactsheet} does not enforce any specifif file name
+%        specification. Follow your teacher's instructions if you are creating a fact
+%        sheet for submission to the school.
+%        \item
+%        Do not load additional packages! This will mess up the process of merging your
+%        standalone fact sheet with others.
+%        \textsf{fhnwfactsheet}loads most classes one would reasonably need to create
+%        a fact sheet. If there really is a package which you absolutely, positively
+%        need, contact the package maintainer and he will see if it can be integrated
+%        into the class. This will then allow to push the class to everyone through an
+%        update and things should (hopefully) not break.
+%    \end{itemize}
+%
+%    \subsection{Master Document}
+%    \label{subsec:masterdoc}
+%    The master document is the  document on which you run \verb|pdflatex|. It
+%    sets up the class and its  configuration and then loads the \verb|Content Document|.
+%    If you are working on a  standalone fact sheet, this file will
+%    be very minimal:
+% \else
+%    \section{Grundkonzept}
+%    \label{sec:concept}
+%    Die  Klasse   erlaubt  sowohl  das  Erstellen   von  einzelnen  Factsheets
+%    als  eigenst\"andige  Dokumente  wie  auch das  Erstellen  einer  Sammlung
+%    von   Factsheets   in   einerm  gr\"osseren   Dokument   mit   Titelseite,
+%    Inhaltsverzeichnis etc. Die grundlegende Struktur ist dabeit identisch:
+%    \dirtree{%^^A
+%        .1 Master Document.
+%        .2 Content Document.
+%        .3 Weitere Ressourcen (z.B.~Bilder).
+%    }
+%
+%    \emph{Beachte:} 
+%    \begin{itemize}
+%        \item
+%        \textsf{fhnwfactsheet} erzwingt keine spezielle Dateinamen
+%        oder Ordnerstruktur. Man beachte die Anweisung der Lehrpersonals diesbez\"uglich
+%        wenn man ein Fact Sheet zur Einreichung bei der Schule erstellt.
+%        \item
+%        Es sollten keine zus\"atzlichen Packages geladen werden. Dies wird den Prozess
+%        des Zusammenstellens verschiedener eigenst\"andiger Fact Sheets st\"oren.
+%        \textsf{fhnwfactsheet} l\"adt die meisten Pakete, welche man \"ublicherweise
+%        zur Erstellung eines Fact Sheets ben\"otigt. Falls wirklich ein Paket nicht
+%        geladen ist, welches absolute, definitiv, sicherlich ben\"otigt wird, kontaktiere
+%        man den Package-Maintainer (siehe erste Seite). Er wird sehen, ob sich das
+%        zus\"atzliche Paket in die Klasse integrieren l\"asst, und falls ja, wird
+%        das entsprechende Update zur Verf\"ugung stellen. Dies
+%        wird hoffentlich einen problemlosen Arbeitsprozess f\"ur alle beteiligten
+%        Parteien erm\"oglichen.
+%    \end{itemize}
+%
+%    \subsection{Master Document}
+%    \label{subsec:masterdoc}
+%    Das  Master-Dokument  ist  das Dokument,  welches  durch  \verb|pdflatex|
+%    verarbeitet wird. Es richtet die Klasse  und Konfiguration ein und l\"adt
+%    anschliessend den eigentlichen Inhalt aus dem \verb|Content Document|. Wenn
+%    ein  eigenst\"andiges  Fact  Sheet  erstellt wird,  ist  dieses  Dokument
+%    ziemlich minimalistisch:
+% \fi
+%\begin{verbatim}
+%\documentclass[german]{fhnwfactsheet}
+%\begin{document}
+%\includefactsheet{contentDocument.tex}
+%\end{document}
+%\end{verbatim}
+% \ifenglish
+%     Multiple \verb|Content Document|s can be included if you wish to create a collection
+%     of fact sheets. Each fact sheet will be put on a single page. This also enables
+%     the creation of a table of contents.
+% \else
+%    Mehrere \verb|Content Document|s k\"onnen geladen werden, wenn man eine Sammlung von
+%    Fact Sheets erstellen m\"ochte. Jedes Fact Sheet wird auf einer einzelnen Seite
+%    erstellt werden. Ein Inhaltsverzeichnis kann ebenfalls erstellt werden.
+% \fi
+%\begin{verbatim}
+%\documentclass[german]{fhnwfactsheet}
+%\begin{document}
+%\pagenumbering{roman}
+%\tableofcontents
+%
+%\newpage\pagenumbering{arabic}
+%
+%\includefactsheet{factsheet1Content.tex}
+%\includefactsheet{factsheet2Content.tex}
+%\includefactsheet{factsheet3Content.tex}
+%\includefactsheet{factsheet4Content.tex}
+%\end{document}
+%\end{verbatim}
+% \ifenglish
+%    \subsection{Content Document}
+%    \label{subsec:contentdoc}
+%    The content document is where the content of your fact sheet actually resides.
+%    it offers some specifics commands to enable consistent layout and typography
+%    and places some restrictions which should prevent things from getting too
+%    extravagant. See the \verb|examples| directory for some example code.
+% \else
+%    \subsection{Content Document}
+%    \label{subsec:contentdoc}
+%    Das \verb|Content Document| ist das Dokument, wo der eigentliche Inhalt
+%    untergebracht ist. Es offeriert einige spezifische Befehle, um konsistentes
+%    Layout und Typographie zu erm\"oglichen und setzt einige Restriktionen, um
+%    allzu extravagante Ideen zu verhindern (oder zumindest zu erschweren).
+%    Beispiele k\"onnen im Verzeichnis  \verb|examples| gefunden werden.
+% \fi
 %^^A >>>
-
 %^^A ------------------------------------------------------------------------- %
 %^^A INSTALLATION <<<
 % \section{Installation}
 % \label{sec:installation}
 %
 % \ifenglish
-%    This section deals  with setting up the  \pacname{fhnwfactsheet} class and
-%    setting up  a document  with it. Once you  have generated  the \code{.cls}
-%    class  file and  the \code{.pdf}  documentation  (that is:  this file,  or
-%    its  equivalent  in  another  language),  or  have  received  those  files
-%    from  somebody,  you  will  need  to  place  the  \code{fhnwfactsheet.cls}
-%    file  in  the  directory  of  your  document  and  then  activate  it  via
-%    |\documentclass{fhnwfactsheet}|. See   the   \code{template.tex}  for   an
-%    example.
+%    From \verb|fhnwfactsheet.dtx| and \verb|fhnwfactsheet.ins|, generate the class file \verb|fhnwfactsheet.cls|
+%    by running
+%\begin{verbatim}
+%pdflatex fhnwfactsheet.ins
+%\end{verbatim}
+%    This will create the class file. If you wish to compile the documentation
+%    (this document), run:
+%\begin{verbatim}
+%pdflatex fhnwfactsheet.dtx
+%\end{verbatim}
+%    After that, place \verb|fhnwfactsheet.cls| in your working directory and
+%    enable it via the \verb|documentclass| command (see example for master document
+%    above).
 %
 %    ^^A\inputminted[linenos=true,numbersep=4pt,fontsize=\footnotesize]{tex}{template.tex}
 %   ^^A TODO: File structure tree with the needed files.
 % \else
-%    Dieser      Abschnitt       erkl\"art      die       Installation      der
-%    \pacname{fhnwfactsheet}-Klasse  und  erl\"autert,  wie  man  ein  Dokument
-%    mit  ihr   einrichtet. Nachdem  man   die  \code{.cls}   Klassendatei  und
-%    die   Dokumentation   (dieses    Dokument,   oder   ein   anderssprachiges
-%    Pendant)   generiert  oder   diese  Dateien   von  einer   anderen  Quelle
-%    erhalten  hat,  muss  man  die  Klassendatei  \code{fhnwfactsheet.cls}  im
-%    selben   Verzeichnis  wie   das   zu   generierende  Dokument   platzieren
-%    und  via   |\documentclass{fhnwfactsheet}|  aktivieren. Siehe   die  Datei
-%    \code{template.tex}, welche mitgeliefert worden sein sollte.
+%    Aus \verb|fhnwfactsheet.dtx| und \verb|fhnwfactsheet.ins| kann das Klassen-Dokument
+%    \verb|fhnwfactsheet.cls| generiert werden via:
+%\begin{verbatim}
+%pdflatex fhnwfactsheet.ins
+%\end{verbatim}
+%    Zum Kompilieren der Dokumentation (dieses Dokument):
+%\begin{verbatim}
+%pdflatex fhnwfactsheet.dtx
+%\end{verbatim}
+%    Anschliessend \verb|fhnwfactsheet.cls| in das Verzeichnis des Fact Sheet-Projekts
+%    kopieren und via \verb|documentclass| laden (siehe Master Document oben).
 % \fi
 %^^A >>>
 %
+%^^A CLASS OPTIONS <<<
+%
+% \ifenglish
+%    \section{Class Options}
+%    \label{sec:options}
+%
+%    \DescribeMacro{english}
+%    \DescribeMacro{german}
+%    \DescribeMacro{deutsch}
+%    These class options will load the corresponding \textsf{babel} language
+%    as well as set some key words accordingly. If you don't specify any
+%    language, the class defaults to German.
+%
+%    \noindent Examples:
+% \else
+%    \section{Klassen-Optionen}
+%    \label{sec:options}
+%
+%    \DescribeMacro{english}
+%    \DescribeMacro{german}
+%    \DescribeMacro{deutsch}
+%    Diese Klassne-Optionen laden die entsprechenden Konfigurationen in \textsf{babel}
+%    und definieren einige Schl\"usselw\"orter in der jeweiligen Sprache. Wenn keine
+%    Sprache spezifiziert wird, l\"adt die Klasse auf deutsch.
+%    
+%    \noindent Beispiele:
+% \fi
+%\begin{verbatim}
+%\documentclass{fhnwfactsheet}          % German
+%\documentclass[deutsch]{fhnwfactsheet} % German
+%\documentclass[german]{fhnwfactsheet}  % German
+%\documentclass[english]{fhnwfactsheet} % English
+%\end{verbatim}
+%^^A >>>
+
+%^^A COMMANDS <<<
+%
+% \ifenglish
+%    \section{Commands}
+%    \label{sec:commands}
+%
+%    This section describes the commands which are implemented by \textsf{fhnwfactsheet}.
+%
+%    \subsection{Language-Specific Macros}
+%    \label{subsec:language-specific}
+%    These macros are used to name the people involved in the project as well as their
+%    roles. None of these have to be specified, if they did not exist. They will be used
+%    when defined, otherwise not.
+%
+%    \DescribeMacro{\team}
+%    Comma-separated list of team members. \emph{Note:} Use \verb|Firstname Lastname|
+%    notation to ensure consistency. Example:
+%\begin{verbatim}
+%\team{%
+%    Team Leader,
+%    Personwho Didallthework,
+%    Personwho Wasalsothere,
+%    Dudewho Wasnotthere}
+%\end{verbatim}
+%    \DescribeMacro{\client}
+%    The client. The format is identical to the \verb|\team| command.
+%
+%    \DescribeMacro{\coach}
+%    \DescribeMacro{\coaches}
+%    The Project coaches. In case of a single person, use \verb|\coach|, in
+%    case of multiple people, use \verb|\coaches|. \emph{Note:} Since these
+%    options are mutually exclusive, the class will raise an error if both
+%    macros have been specified.
+%
+%    \DescribeMacro{\expert}
+%    \DescribeMacro{\experts}
+%    Experts, for example in case of a thesis. Same as above, the class will
+%    raise an error in case of both singular and plural form being specified.
+%
+%    \DescribeMacro{\partner}
+%    \DescribeMacro{\partners}
+%    Industry partners, if there were any (and they can be named).
+%
+%    \subsection{Content Generation}
+%    \label{subsec:content-generation}
+%    The following macros are used to create the content which goes onto the 
+%    fact sheet page.
+%    \DescribeMacro{\title}
+%    The title for the page. This will also be used as the title in the table
+%    of contents in case of a collection document (internally it is automagically
+%    mapped to a \verb|\chapter|).
+%\begin{verbatim}
+%\title{Grand Title of Significant Magnitude}
+%\end{verbatim}
+%    \emph{Note:} The title will never wrap onto a new line. If it is too long for
+%    a single line, it will simply run off the page. This is by design. Shorten
+%    your title in that case.
+%
+%    \DescribeMacro{\fssummary}
+%    This is where the introductory header text goes. Ideally, it should not be longer
+%    than three or maximum four lines. However, the macro itself does not enforce
+%    this. Example\footnote{Goethe's Faust -- Nacht; this will result in 3.5 lines.}
+%    Hier kommt der Einleitungstext hinein. Idealerweise sollte die Einleitung nicht
+%    l\"anger als drei bis maximal vier Zeilen sein. Das Macro erwzingt diese L\"ange
+%    allerdings nicht. Beispiel
+%\begin{verbatim}
+%\fssummary{%
+%    Habe nun, ach! Philosophie,
+%    Juristerei und Medizin,
+%    Und leider auch Theologie
+%    Durchaus studiert, mit heißem Bemüh'n.
+%    Da steh ich nun, ich armer Tor!
+%    Und bin so klug als wie zuvor;
+%    Heiße Magister, heiße Doktor gar,
+%    Und ziehe schon an die zehen Jahr
+%    Herauf, herab und quer und krumm
+%    Meine Schüler an der Nase herum.}
+%\end{verbatim}
+%
+%    \DescribeMacro{\fsgraphics}
+%    This command creates a box which is put between \verb|\fssummary| and \verb|\fscontent|
+%    with the intent of being filled with graphical content. There are not really any
+%    restrictions placed on the graphics, so treat with care. Usually, one would probably
+%    want to use \verb|\includegraphics| here.
+
+%    For including multiple graphics, the use of \verb|minipage|s is advised.
+%    \footnote{More about minipages and their sometimes surprising behavior:\newline
+%        \href{https://github.com/alpenwasser/TeX/tree/master/minipages}.
+%             {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/minipages}}}.
+%
+%    \DescribeMacro{\graphicscaption}
+%    The caption for a picture. Can be used multiple times in case of multiple pictures.
+%    Should be kept short.
+%
+%    \DescribeMacro{\graphicssource}
+%    A source for the pictures. Is placed vertically in the right page margin. This, too
+%    should be kept short (see example below).
+%
+%    An example for including two images along the horizonal axis:
+%\begin{verbatim}
+%\fsgraphics{%
+%    \begin{minipage}{0.4\textwidth}
+%        \includegraphics[height=60mm]{images/bild0.png}
+%        \graphicscaption{Dies ist ein Bild}
+%    \end{minipage}%
+%    \begin{minipage}{0.6\textwidth}
+%        \includegraphics[height=60mm]{images/bild1.png}
+%        \graphicscaption{Dies ist ein anderes Bild}
+%    \end{minipage}
+%    \graphicssource{Wikipedia}}
+%\end{verbatim}
+%
+%    \DescribeMacro{\fscontent}
+%    The main content of your document, split into three columns. Partition via
+%    the \verb|\section| command as usual (there are no \verb|subsection|s or 
+%    even \verb|\subsubsection|s available).
+%
+%    You can also include graphics here, should you feel so inclined (see the
+%    separate \emph{Sonart} example fact sheet). Example:
+%  
+%\begin{verbatim}    
+%\section{Faust -- Nacht}
+%\label{sec:faust-night}
+%Und sehe, daß wir nichts wissen können!
+%Das will mir schier das Herz verbrennen.
+%Zwar bin ich gescheiter als all die Laffen,
+%Doktoren, Magister, Schreiber und Pfaffen;
+%Mich plagen keine Skrupel noch Zweifel,
+%Fürchte mich weder vor Hölle noch Teufel -
+%Dafür ist mir auch alle Freud´ entrissen,
+%Bilde mir nicht ein, was Recht's zu wissen,
+%Bilde mir nicht ein, ich könnte was lehren,
+%Die Menschen zu bessern und zu bekehren.
+%
+%\section{Faust -- Mehr Nacht}
+%\label{sec:faust-more-night}
+%Auch hab´ ich weder Gut noch Geld,
+%Noch Ehr´ und Herrlichkeit der Welt;
+%Es möchte kein Hund so länger leben!
+%Drum hab´ ich mich der Magie ergeben,
+%Ob mir durch Geistes Kraft und Mund
+%Nicht manch Geheimnis würde kund;
+%Daß ich nicht mehr mit saurem Schweiß
+%Zu sagen brauche, was ich nicht weiß;
+%Daß ich erkenne, was die Welt
+%Im Innersten zusammenhält,
+%Schau´ alle Wirkenskraft und Samen,
+%Und tu´ nicht mehr in Worten kramen.
+%\end{verbatim}    
+%    \DescribeMacro{\infobox}
+%    A box which gets placed on the left side at the page bottom. Can
+%    fundamentally contain pretty much any content you like. Well-suited
+%    for highlighing key points or specifications about the project.
+%    Example:
+%\begin{verbatim}
+%\infobox{Highlights}{%
+%    \footnotesize
+%    \setlength\tabcolsep{2pt} % make table a bit more compact horizontally
+%    \begin{tabular}{ll}
+%    Category 1 & Property A \\
+%               & Property B \\
+%               & Property C \\
+%               & Property D \\
+%    Category 2 & Property E \\
+%               & Property F \\
+%               & Property G \\
+%               & Property H \\
+%    \end{tabular}}
+%\end{verbatim}
+%
+%    \DescribeMacro{\includefactsheet}
+%    Loads a \verb|Content Document| in a \verb|Master Document| (see
+%    Section~\ref{sec:concept}).
+%
+% \else
+%    \section{Befehle}
+%    \label{sec:commands}
+%    Dieser Abschnitt beschreibt die Macros, welche von \textsf{fhnwfactsheet} implementiert werden.
+%
+%    \subsection{Sprachspezifische Macros}
+%    \label{subsec:language-specific}
+%    Diese Macros werden dazu verwendet, die im Project involvierten Personen und ihre
+%    Rollen zu beschreiben. Rollen welche nicht gef\"ullt waren, k\"onnen weggelassen
+%    werden. Keiner dieser Befehle muss benutzt werden, damit das Dokument kompiliert
+%    werden kann. Sie werden benutzt wenn definiert, andernfalls nicht.
+%
+%    \DescribeMacro{\team}
+%    Komma-getrennte Liste der Gruppenmitglieder. \emph{Beachte:} Zwecks Einhaltung von
+%    Konsistenz benutze man \verb|Vorname Nachname|-Notation. Beispiel:
+%\begin{verbatim}
+%\team{%
+%    Team Leader,
+%    Personwho Didallthework,
+%    Personwho Wasalsothere,
+%    Dudewho Wasnotthere}
+%\end{verbatim}
+%    \DescribeMacro{\client}
+%    Auftraggeber. Das Format ist identisch zum \verb|\team|-Befehl.
+%
+%    \DescribeMacro{\coach}
+%    \DescribeMacro{\coaches}
+%    Die Fachcoaches. Im Falle einer Einzelperson benutze man \verb|\coach|,
+%    im Falle von mehreren Personen \verb|\coaches|. \emph{Beachte:} Da diese
+%    beiden Varianten sich gegenseitig ausschliessen, wird die Klasse einen
+%    Fehler ausl\"osen, wenn beide spezifiziert worden sind.
+%    
+%    \DescribeMacro{\expert}
+%    \DescribeMacro{\experts}
+%    Allf\"allig beigezogene Experten (z.B. im Falle einer Thesis.) Auch hier
+%    gilt die gleiche Regel betreffend Singular/Plural und Fehler-Ausl\"osung.
+%
+%    \DescribeMacro{\partner}
+%    \DescribeMacro{\partners}
+%    Industriepartner, falls vorhanden und falls sie genannt werden d\"urfen.
+%
+%    \subsection{Dokumenten-Inhalt}
+%    \label{subsec:content-generation}
+%    \DescribeMacro{\title}
+%    Der Titel der Seite. Dieser Text wird auch f\"ur das Inhaltsverzeichnis verwendet
+%    im Falle eines Sammlungs-Dokuments (intern wird er automagisch in ein \verb|\chapter|
+%    gespeichert).
+%\begin{verbatim}
+%\title{Grandioser Title von einiger Wichtigkeit}
+%\end{verbatim}
+%    \emph{Beachte:}  Der Titel wird niemals einen Zeilenumbruch machen. Falls er
+%    zu lange f\"ur eine einzelne Zeile ist, wird er einfach in den rechten Seitenrand
+%    laufen. Dies ist Absicht. Man k\"urze in diesem Falle den Titel entsprechend.
+%
+%    \DescribeMacro{\fssummary}
+%    Hier kommt der Einleitungstext hinein. Idealerweise sollte die Einleitung nicht
+%    l\"anger als drei bis maximal vier Zeilen sein. Das Macro erwzingt diese L\"ange
+%    allerdings nicht. Beispiel\footnote{Goethe's Faust -- Nacht; dies ergibt 3.5 Zeilen.}:
+%\begin{verbatim}
+%\fssummary{%
+%    Habe nun, ach! Philosophie,
+%    Juristerei und Medizin,
+%    Und leider auch Theologie
+%    Durchaus studiert, mit heißem Bemüh'n.
+%    Da steh ich nun, ich armer Tor!
+%    Und bin so klug als wie zuvor;
+%    Heiße Magister, heiße Doktor gar,
+%    Und ziehe schon an die zehen Jahr
+%    Herauf, herab und quer und krumm
+%    Meine Schüler an der Nase herum.}
+%\end{verbatim}
+% 
+%    \DescribeMacro{\fsgraphics}
+%    Dieser Befehl wird eine Box zwischen \verb|\fssummary| und \verb|\fscontent|
+%    setzen mit allf\"alligen Grafiken. In der Gestaltund des Inhalts von \verb|\fsgraphics|
+%    ist man relative frei. Sinnvollerweise kommt hier \verb|\includegraphics| zum Zug.
+%    
+%    Will man mehrere Grafiken einbinden und nebeneinander anordnen, kann man dies
+%    mit \verb|minipage|s bewerkstelligen (siehe Beispiel weiter unten)
+%    \footnote{Mehr zu Minipages und ihr manchmal etwas \"uberraschendes Verhalten:\newline
+%        \href{https://github.com/alpenwasser/TeX/tree/master/minipages}.
+%             {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/minipages}}}.
+%
+%    \DescribeMacro{\graphicscaption}
+%    Die Legende f\"ur ein Bild. Kann mehrmals verwendet werden im Falle von mehreren
+%    Bildern. Sinnvollerweise kurz halten.
+%
+%    \DescribeMacro{\graphicssource}
+%    Quellenangabe f\"ur Bilder. Wird vertikal im rechten Seitenrand platziert. Auch hier
+%    liegt die W\"urze in der K\"urze (siehe Beispiel).
+%
+%    Ein Beispiel zur Anordnung von zwei Bildern entlang der horizontalen Achse:
+%\begin{verbatim}
+%\fsgraphics{%
+%    \begin{minipage}{0.4\textwidth}
+%        \includegraphics[height=60mm]{images/bild0.png}
+%        \graphicscaption{Dies ist ein Bild}
+%    \end{minipage}%
+%    \begin{minipage}{0.6\textwidth}
+%        \includegraphics[height=60mm]{images/bild1.png}
+%        \graphicscaption{Dies ist ein anderes Bild}
+%    \end{minipage}
+%    \graphicssource{Wikipedia}}
+%\end{verbatim}
+%
+%    \DescribeMacro{\fscontent}
+%    Der Haupt-Inhalt, aufgeteilt in drei Spalten. Der Text kann wie gehabt via
+%    \verb|\section| unterteilt werden (\verb|\subsection| und \verb|\subsubsection|
+%    sind jedoch deaktiviert).
+% 
+%    Auch Bilder k\"onnen eingebunden werden, falls man m\"ochte (siehe das
+%    separate Beispiel zu \emph{Sonart}). Beispiel:
+
+%\begin{verbatim}    
+%\section{Faust -- Nacht}
+%\label{sec:faust-night}
+%
+%Und sehe, daß wir nichts wissen können!
+%Das will mir schier das Herz verbrennen.
+%Zwar bin ich gescheiter als all die Laffen,
+%Doktoren, Magister, Schreiber und Pfaffen;
+%Mich plagen keine Skrupel noch Zweifel,
+%Fürchte mich weder vor Hölle noch Teufel -
+%Dafür ist mir auch alle Freud´ entrissen,
+%Bilde mir nicht ein, was Recht's zu wissen,
+%Bilde mir nicht ein, ich könnte was lehren,
+%Die Menschen zu bessern und zu bekehren.
+%
+%\section{Faust -- Mehr Nacht}
+%\label{sec:faust-more-night}
+%
+%Auch hab´ ich weder Gut noch Geld,
+%Noch Ehr´ und Herrlichkeit der Welt;
+%Es möchte kein Hund so länger leben!
+%Drum hab´ ich mich der Magie ergeben,
+%Ob mir durch Geistes Kraft und Mund
+%Nicht manch Geheimnis würde kund;
+%Daß ich nicht mehr mit saurem Schweiß
+%Zu sagen brauche, was ich nicht weiß;
+%Daß ich erkenne, was die Welt
+%Im Innersten zusammenhält,
+%Schau´ alle Wirkenskraft und Samen,
+%Und tu´ nicht mehr in Worten kramen.
+%\end{verbatim}    
+%    \DescribeMacro{\infobox}
+%    Eine Box, welche links unten auf der Seite platziert wird. Kann
+%    grunds\"atzlich mit mehr oder weniger beliebigem Inhalt gef\"ullt werden.
+%    Bietet sich gut an, um besondere Highlights oder Eckdaten hervorzuheben.
+%    Beispiel:
+%\begin{verbatim}
+%\infobox{Highlights}{%
+%    \footnotesize
+%    \setlength\tabcolsep{2pt} % make table a bit more compact horizontally
+%    \begin{tabular}{ll}
+%    Category 1 & Property A \\
+%               & Property B \\
+%               & Property C \\
+%               & Property D \\
+%    Category 2 & Property E \\
+%               & Property F \\
+%               & Property G \\
+%               & Property H \\
+%    \end{tabular}}
+%\end{verbatim}
+%    \DescribeMacro{\includefactsheet}
+%    L\"aedt ein \verb|Content Document| in einem \verb|Master Document| (siehe
+%    Abschnitt~\ref{sec:concept}).
+% \fi
+%^^A >>>
+
 %^^A ------------------------------------------------------------------------- %
-%^^A USAGE <<<
-% \ifenglish\section{Usage}\else\section{Anleitung}\fi
-% \label{sec:usage}
+%^^A EXAMPLES <<<
+% \ifenglish\section{Examples}\else\section{Beispiele}\fi
+% \label{sec:examples}
+% \ifenglish
+%    The \verb|examples| directory contains a few examples.
+% \else
+%    Das Verzeichnis \verb|examples| enth\"alt einige Beispiele.
+% \fi
+%^^A No options, just a few things to pay attention to: ... list of things
+%^^A >>>
+
+%^^A ------------------------------------------------------------------------- %
+%^^A STYLE GUIDELINES <<<
+% \ifenglish\section{Style Guidelines}\else\section{Stil-Richtlinien}\fi
+% \label{sec:examples}
+% \ifenglish
+%    TODO
+% \else
+%    TODO
+% \fi
 %^^A No options, just a few things to pay attention to: ... list of things
 %^^A >>>
 %
@@ -156,11 +673,11 @@
 % \section{Implementation}
 % \label{sec:implementation}
 %
-% \StopEventually{}
+% \StopEventually{\PrintIndex}
 % \ifenglish
-% English description of Implementation.
+% If you are merely intending to use this class, you probably do not need to read this.
 % \else
-% Deutsche Beschreibung der Implementation.
+% Normale Benutzer brauchen diesen Abschnitt vermutlich nicht zu lesen.
 % \fi
 %^^A Need the class guards to prevent the macro code from being included again 
 %^^A in template.tex and the German .tex file
@@ -168,8 +685,518 @@
 %<*class> 
 %\fi
 %    \begin{macrocode}
-\newlength{\factpageinner}
+\newif\if@english
+\newif\if@german
+\DeclareOption{english}{\@englishtrue\@germanfalse}
+\DeclareOption{german}{\@germantrue\@englishfalse}
+\DeclareOption{deutsch}{\@germantrue\@englishfalse}
+\ExecuteOptions{english,german,deutsch}
+\ProcessOptions
+
+% Packages
+\LoadClass{report}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{rviewport}
+\RequirePackage{multicol}
+\RequirePackage[inline]{enumitem}
+\RequirePackage{geometry}
+\RequirePackage[scaled=0.95]{helvet}
+\renewcommand\familydefault{\sfdefault}
+\RequirePackage{xcolor}
+\RequirePackage{rotating}
+% Define document colos palette
+\definecolor{parties}{HTML}{666666}
+\definecolor{title}{HTML}{000066}
+\definecolor{summary}{HTML}{666666}
+\colorlet{boxbg}{cyan!50!blue!20!white}
+\RequirePackage{tcolorbox}
+\RequirePackage{booktabs}
+\RequirePackage[binary-units=true]{siunitx}
+\sisetup{range-phrase=--}
+\RequirePackage[%
+    hidelinks=true,
+    bookmarksnumbered=true]{hyperref}
+\if@english
+    \RequirePackage[english]{babel}
+\fi
+\if@german
+    \RequirePackage[ngerman]{babel}
+\fi
+
+% Page Geometry
+\geometry{a4paper,twoside=false}
 \newlength{\factpageouter}
+\newlength{\factpageinner}
+\newlength{\factpagetop}
+\newlength{\factpagebottom}
+\newlength{\factpagewidth}
+\newlength{\factgraphicswidth}
+\newlength{\testl}
+\setlength{\factpageouter}{25mm}
+\setlength{\factpageinner}{25mm}
+\setlength{\factpagetop}{8mm}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Needed so that page numbers do not slide down too far.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\setlength{\factpagebottom}{30mm}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Rest of page geometry layout:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\setlength{\factpagewidth}{\paperwidth}
+\addtolength{\factpagewidth}{-\factpageinner}
+\addtolength{\factpagewidth}{-\factpageouter}
+\setlength{\factgraphicswidth}{50mm}
+\geometry{outer=\factpageouter,inner=\factpageinner,%
+          top=\factpagetop,    bottom=\factpagebottom}
+
+\let\newcol\newpage
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% We put the entire  page inside a minipage environment to  make it not take
+% up more space than a single page. We  also set the height of that minipage
+% to zero so that  it stays on the first page no matter  how much content is
+% put inside it.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newenvironment{factpage}
+    {\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
+    {\end{minipage}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Redefine Section Headings  to not be numbered by default. This  is done by
+% adding a * after its sixth argument. The rest of the command is similar to
+% what can be found in The LaTeX article.cls file.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                     {-2.5ex \@plus -1ex \@minus -.2ex}%
+                                     {1ex}%
+                                     %{1ex \@plus.2ex}% default
+                                     {\large\bfseries\color{title}}*}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Having subsections  or even  lower-tiered headings in  a document  such as
+% this one would be ridiculous. Remove them to make sure they are not used.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\let\subsection\@undefined
+\let\subsubsection\@undefined
+\let\paragraph\@undefined
+\let\subparagraph\@undefined
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Define language-specific terms.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\iflanguage{english}{%
+    \newcommand*{\lang@team}    {\textbf{Project Team: }}
+    \newcommand*{\lang@client}  {\textbf{Client: }}
+    \newcommand*{\lang@coach}   {\textbf{Coach: }}
+    \newcommand*{\lang@coaches} {\textbf{Coaches: }}
+    \newcommand*{\lang@expert}  {\textbf{Expert: }}
+    \newcommand*{\lang@experts} {\textbf{Experts: }}
+    \newcommand*{\lang@partner} {\textbf{Industry Partner: }}
+    \newcommand*{\lang@partners}{\textbf{Industry Partners: }}
+    \newcommand*{\lang@source}  {\textit{Source: }}
+}{}
+\iflanguage{ngerman}{%
+    \newcommand*{\lang@team}    {\textbf{Arbeitsgruppe: }}
+    \newcommand*{\lang@client}  {\textbf{Auftraggeber: }}
+    \newcommand*{\lang@coach}   {\textbf{Betreuer: }}
+    \newcommand*{\lang@coaches} {\textbf{Betreuer: }}
+    \newcommand*{\lang@expert}  {\textbf{Experte: }}
+    \newcommand*{\lang@experts} {\textbf{Experten: }}
+    \newcommand*{\lang@partner} {\textbf{Industriepartner: }}
+    \newcommand*{\lang@partners}{\textbf{Industriepartner: }}
+    \newcommand*{\lang@source}  {\textit{Quelle: }}
+}{}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Save those terms in the appropriate macros.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand*{\team}[1]
+    {\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
+\newcommand*{\client}[1]
+    {\gdef\@client  {{\footnotesize\color{parties}\lang@client#1}}}
+\newcommand*{\coach}[1]
+    {\gdef\@coach   {{\footnotesize\color{parties}\lang@coach#1}}}
+\newcommand*{\coaches}[1]
+    {\gdef\@coaches {{\footnotesize\color{parties}\lang@coaches#1}}}
+\newcommand*{\expert}[1]
+    {\gdef\@expert  {{\footnotesize\color{parties}\lang@expert#1}}}
+\newcommand*{\experts}[1]
+    {\gdef\@experts {{\footnotesize\color{parties}\lang@experts#1}}}
+\newcommand*{\partner}[1]
+    {\gdef\@partner {{\footnotesize\color{parties}\lang@partner#1}}}
+\newcommand*{\partners}[1]
+    {\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Redefine \verb|maketitle| to do our bidding:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\renewcommand\maketitle{\par
+    \begingroup
+        {\Huge\color{title}\@title}\par
+        \vspace{2em}
+        \global\let\maketitle\relax
+        \global\let\@maketitle\relax
+        \global\let\title\relax
+        \global\let\date\relax
+        \global\let\@title\@empty
+        \global\let\@date\@empty
+    \endgroup
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% For testing purposes:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newlength{\placeholderbase}
+\newcommand\placeholderpics{%
+    \setlength{\placeholderbase}{48mm}
+    \begin{tikzpicture}[x=\placeholderbase,y=\placeholderbase,draw=black!50!white,very thick]
+        \draw (0,0) -- (1.618,1);
+        \draw (0,1) -- (1.618,0);
+        \draw (0,0) -- (1.618,0) -- (1.618,1) -- (0,1) -- cycle;
+        \node[draw,fill=white] at (0.809,0.5) {\large Beautiful Picture!};
+    \end{tikzpicture}
+    \begin{tikzpicture}[x=\placeholderbase,y=\placeholderbase,draw=black!50!white,very thick]
+        \draw (0,0) -- (1.618,1);
+        \draw (0,1) -- (1.618,0);
+        \draw (0,0) -- (1.618,0) -- (1.618,1) -- (0,1) -- cycle;
+        \node[draw,fill=white] at (0.809,0.5) {\large Amazing Graphics!};
+    \end{tikzpicture}\par
+    {\footnotesize Beautiful Picture and Amazing Graphics}
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Store the concents of \verb|\fscontent| in \verb|\fs@content|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fscontent[1]{\gdef\fs@content{#1}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Print the contents of \verb|\fs@content|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fs@makecontent{\par
+    \vspace{1em}\begin{multicols}{3}
+        \ifdef{\fs@content}{\fs@content}\par
+    \end{multicols}
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Store the concents of \verb|\fssummary| in \verb|\fs@summary|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fssummary[1]{\gdef\fs@summary{#1}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Print the contents of \verb|\fs@summary|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fs@makesummary{\par
+    \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
+        \ifdef{\fs@summary}{\color{summary}\fs@summary}\par
+    \end{minipage}%
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Store the concents of \verb|\fsgraphics| in \verb|\fs@graphics|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
+\newcommand\graphicssource[1]{\gdef\fs@graphicssource{#1}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Put the contents of \verb|\graphicscaption| inside an \verb|\mbox| so that it does not wrap.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\graphicscaption[1]{\mbox{#1}}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Print the contents of \verb|\fs@graphics|
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fs@makegraphics{\par
+    \vspace{1em}\noindent\begin{minipage}[b]{\textwidth}%
+        \footnotesize\raggedright
+        \ifdef{\fs@graphics}{\fs@graphics}\par\par
+        \ifdef{\fs@graphicscaption}{\fs@graphicscaption}\par
+    \end{minipage}%
+    \begin{minipage}[t]{2ex}\footnotesize\color{parties}
+        \ifdef{\fs@graphicssource}{%
+            \hspace*{2ex}%
+            \turnbox{90}{%
+                \hspace*{2ex} \lang@source \fs@graphicssource}}\par
+    \end{minipage}%
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Store the content of \verb|\infobox| and print it:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\infobox[2]{%
+    \gdef\fs@infoboxtitle{#1}%
+    \gdef\fs@infoboxcontent{\footnotesize #2}%
+}
+\newcommand\fs@makeinfobox{
+    \begin{tcolorbox}[
+            title=\fs@infoboxtitle,
+            width=0.66\textwidth,
+            arc=0mm,
+            before=,
+            after=\hfill]
+        \fs@infoboxcontent
+    \end{tcolorbox}
+}
+\newcommand\tightlist{%
+    \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}%
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Errors:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\fs@checkinput{%
+    \ifdef{\@coach}{%
+        \ifdef{\@coaches}{%
+            \ClassError{fhnwfactsheet}{Both 'coach' and 'coaches' field defined. Undefine one.}
+                {Both the 'coach' and the 'coaches' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+    \ifdef{\@expert}{%
+        \ifdef{\@experts}{%
+            \ClassError{fhnwfactsheet}{Both 'expert' and 'experts' field defined. Undefine one.}
+                {Both the 'expert' and the 'experts' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+    \ifdef{\@partner}{%
+        \ifdef{\@partners}{%
+            \ClassError{fhnwfactsheet}{Both 'partner' and 'partners' field defined. Undefine one.}
+                {Both the 'partner' and the 'partners' field are defined. Only one of them should be.}
+        }{}%
+    }{}%
+    \ifdef{\fs@infoboxcontent}{}
+        {%
+            \ClassError{fhnwfactsheet}{Did you forget to specify your infobox?}
+            {The infobox contents are not defined. Make sure your infobox command is properly called.}
+        }%
+    \ifdef{\fs@infoboxtitle}{}
+        {%
+            \ClassError{fhnwfactsheet}{Did you forget to specify your infobox?}
+            {The infobox title is not defined. Make sure your infobox command is properly called.}
+        }%
+}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Chapter code. Taken mostly from \verb|classes.dtx|.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\renewcommand\chapter{%\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addcontentsline{toc}{chapter}{#1}%
+                                   %{\protect\numberline{\thechapter}#1}%
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\def\@makechapterhead#1{%
+    \begingroup
+        \mbox{\Huge\color{title}#1}\par
+        \vspace{2em}
+    \endgroup
+}
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge\color{title} #1\par\nobreak
+    \vskip 40\p@
+  }}
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode 
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      %\@dottedtocline{0}{0em}{0em}{#1}{#2}\par
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Including a fact sheet content file in a master document:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet\newpage}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Output routine:
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newcommand\makefactsheet{
+    \begin{factpage}
+        \fs@checkinput
+        \chapter{\@title}
+        % Must be after \chapter
+        % Note: We do not want to overwrite the \chapter pagestyle{plain} everywhere.
+        \thispagestyle{empty}
+        \fs@makesummary
+        \vspace{1ex}
+        \fs@makegraphics
+        \vspace{1ex}
+        \fs@makecontent
+        \vspace{1ex}
+        \tcbset{
+            colback=boxbg,
+            colframe=title,
+            boxrule=0.5pt,
+            toptitle=2pt,
+            bottomtitle=1pt,
+            titlerule=0.5pt,
+        }
+        \fs@makeinfobox
+        \begin{minipage}[b]{0.30\textwidth}
+            \ifdef{\@team}{\@team}{}\par
+            \ifdef{\@client}{\@client}{}\par
+            \ifdef{\@coach}{\@coach}{}\par
+            \ifdef{\@coaches}{\@coaches}{}\par
+            \ifdef{\@expert}{\@expert}{}\par
+            \ifdef{\@experts}{\@experts}{}\par
+            \ifdef{\@partner}{\@partner}{}\par
+            \ifdef{\@partners}{\@partners}{}\par
+        \end{minipage}
+    \end{factpage}\raisebox{6ex}{\hspace{3em}\thepage}
+    % Undefine for next fact sheet
+    \let\fs@graphics\@undefined
+    \let\fs@graphicssource\@undefined
+    \let\fs@graphicscaption\@undefined
+    \let\@team\@undefined
+    \let\@client\@undefined
+    \let\@coach\@undefined
+    \let\@coaches\@undefined
+    \let\@expert\@undefined
+    \let\@experts\@undefined
+    \let\@partner\@undefined
+    \let\@partners\@undefined
+    \let\fs@infoboxtitle\@undefined
+    \let\fs@infoboxcontent\@undefined
+}
 %    \end{macrocode}
 %\iffalse
 %</class>

@@ -1,8 +1,10 @@
 default:
 	@latex fhnwfactsheet.ins
 	@pdflatex -shell-escape fhnwfactsheet.dtx
+	@makeindex -s gind.ist -o fhnwfactsheet.ind fhnwfactsheet.idx
 	@mv fhnwfactsheet.pdf fhnwfactsheet-en.pdf
 	@pdflatex -shell-escape fhnwfactsheet-de.tex
+	@makeindex -s gind.ist -o fhnwfactsheet-de.ind fhnwfactsheet-de.idx
 	#@cp fhnwfactsheet.cls ../
 
 # Preserve PDF documents, template and class file.
@@ -16,6 +18,8 @@ tidy:
 	@rm -f fhnwfactsheet.tex
 	@rm -f fhnwfactsheet.out
 	@rm -f fhnwfactsheet.toc
+	@rm -f fhnwfactsheet.ilg
+	@rm -f fhnwfactsheet.ind
 	@cp fhnwfactsheet-de.pdf bak.fhnwfactsheet-de.pdf
 	@rm -f fhnwfactsheet-de.*
 	@mv bak.fhnwfactsheet-de.pdf fhnwfactsheet-de.pdf
