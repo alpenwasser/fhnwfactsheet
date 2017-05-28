@@ -1,10 +1,5 @@
 resources
-dtx
-images
-fhnwfactsheet.cls
 *.aux
 *.log
 *.toc
 *.out
-partial.pdf
-Main.pdf
