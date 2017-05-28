@@ -1,7 +1,6 @@
 resources
 dtx
 images
-resources
 fhnwfactsheet.cls
 *.aux
 *.log

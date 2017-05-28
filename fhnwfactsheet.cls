@@ -1,6 +1,19 @@
+%%
+%% This is file `fhnwfactsheet.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fhnwfactsheet.dtx  (with options: `class')
+%%     Author: Raphael Frey <webmaster@alpenwasser.net>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fhnwfactsheet}[2017/03/15 v1.0 PDF-LaTeX class for FHNW fact sheets]
-% Class Options
+\ProvidesClass{fhnwfactsheet}%
+    [2017/05/28 v0.9.0 PDF-LaTeX class for FHNW fact sheets]
+
+
+
+
+
 \newif\if@english
 \newif\if@german
 \DeclareOption{english}{\@englishtrue\@germanfalse}
@@ -9,24 +22,27 @@
 \ExecuteOptions{english,german,deutsch}
 \ProcessOptions
 
-% Packages
 \LoadClass{report}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{rviewport}
 \RequirePackage{multicol}
+\RequirePackage[inline]{enumitem}
 \RequirePackage{geometry}
-%\RequirePackage[sfdefault,light,scale=1]{FiraSans}
 \RequirePackage[scaled=0.95]{helvet}
 \renewcommand\familydefault{\sfdefault}
 \RequirePackage{xcolor}
-% Define document colos palette
+\RequirePackage{rotating}
 \definecolor{parties}{HTML}{666666}
 \definecolor{title}{HTML}{000066}
 \definecolor{summary}{HTML}{666666}
 \colorlet{boxbg}{cyan!50!blue!20!white}
 \RequirePackage{tcolorbox}
 \RequirePackage{booktabs}
+\RequirePackage[binary-units=true]{siunitx}
+\sisetup{range-phrase=--}
 \RequirePackage[%
     hidelinks=true,
     bookmarksnumbered=true]{hyperref}
@@ -37,7 +53,6 @@
     \RequirePackage[ngerman]{babel}
 \fi
 
-% Page Geometry
 \geometry{a4paper,twoside=false}
 \newlength{\factpageouter}
 \newlength{\factpageinner}
@@ -48,8 +63,8 @@
 \newlength{\testl}
 \setlength{\factpageouter}{25mm}
 \setlength{\factpageinner}{25mm}
-\setlength{\factpagetop}{15mm}
-\setlength{\factpagebottom}{30mm} % Needed so that page numbers do not slide down too far.
+\setlength{\factpagetop}{8mm}
+\setlength{\factpagebottom}{30mm}
 \setlength{\factpagewidth}{\paperwidth}
 \addtolength{\factpagewidth}{-\factpageinner}
 \addtolength{\factpagewidth}{-\factpageouter}
@@ -57,73 +72,61 @@
 \geometry{outer=\factpageouter,inner=\factpageinner,%
           top=\factpagetop,    bottom=\factpagebottom}
 
-% -------------------------------------------------------------------------- %
-% We put the entire  page inside a minipage environment to  make it not take %
-% up more space than a single page. We  also set the height of that minipage %
-% to zero so that  it stays on the first page no matter  how much content is %
-% put inside it.                                                             %
-% -------------------------------------------------------------------------- %
-    %{\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
+\let\newcol\newpage
 \newenvironment{factpage}
     {\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
-    %{\noindent\begin{minipage}[t][746pt]{\factpagewidth}}
     {\end{minipage}}
-
-% -------------------------------------------------------------------------- %
-% Redefine Section Headings  to not be numbered by default. This  is done by %
-% adding a * after its sixth argument. The rest of the command is similar to %
-% what can be found in The LaTeX article.cls file.                           %
-% -------------------------------------------------------------------------- %
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                      {-2.5ex \@plus -1ex \@minus -.2ex}%
-                                     {1ex \@plus.2ex}%
-                                     {\fontfamily{jkpss}\selectfont\color{title}}*}
-                                     %{\normalfont\normalsize\bfseries}*}
-                                     %{\normalfont\Large\bfseries}*}
-
-
-% -------------------------------------------------------------------------- %
-% Having subsections  or even  lower-tiered headings in  a document  such as %
-% this one would be ridiculous. Remove them to make sure they are not used.  %
-% -------------------------------------------------------------------------- %
+                                     {1ex}%
+                                     %{1ex \@plus.2ex}% default
+                                     {\large\bfseries\color{title}}*}
 \let\subsection\@undefined
 \let\subsubsection\@undefined
 \let\paragraph\@undefined
 \let\subparagraph\@undefined
-
-% Define language-specific terms.
 \iflanguage{english}{%
-    \newcommand*{\lang@team}  {\textbf{Project Team: }}
+    \newcommand*{\lang@team}    {\textbf{Project Team: }}
+    \newcommand*{\lang@client}  {\textbf{Client: }}
     \newcommand*{\lang@coach}   {\textbf{Coach: }}
     \newcommand*{\lang@coaches} {\textbf{Coaches: }}
     \newcommand*{\lang@expert}  {\textbf{Expert: }}
     \newcommand*{\lang@experts} {\textbf{Experts: }}
     \newcommand*{\lang@partner} {\textbf{Industry Partner: }}
     \newcommand*{\lang@partners}{\textbf{Industry Partners: }}
+    \newcommand*{\lang@source}  {\textit{Source: }}
 }{}
 \iflanguage{ngerman}{%
     \newcommand*{\lang@team}    {\textbf{Arbeitsgruppe: }}
+    \newcommand*{\lang@client}  {\textbf{Auftraggeber: }}
     \newcommand*{\lang@coach}   {\textbf{Betreuer: }}
     \newcommand*{\lang@coaches} {\textbf{Betreuer: }}
     \newcommand*{\lang@expert}  {\textbf{Experte: }}
     \newcommand*{\lang@experts} {\textbf{Experten: }}
     \newcommand*{\lang@partner} {\textbf{Industriepartner: }}
     \newcommand*{\lang@partners}{\textbf{Industriepartner: }}
+    \newcommand*{\lang@source}  {\textit{Quelle: }}
 }{}
-
-% Save those terms in the appropriate macros.
-\newcommand*{\team}    [1]{\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
-\newcommand*{\coach}   [1]{\gdef\@coach   {{\footnotesize\color{parties}\lang@coach#1}}}
-\newcommand*{\coaches} [1]{\gdef\@coaches {{\footnotesize\color{parties}\lang@coaches#1}}}
-\newcommand*{\expert}  [1]{\gdef\@expert  {{\footnotesize\color{parties}\lang@expert#1}}}
-\newcommand*{\experts} [1]{\gdef\@experts {{\footnotesize\color{parties}\lang@experts#1}}}
-\newcommand*{\partner} [1]{\gdef\@partner {{\footnotesize\color{parties}\lang@partner#1}}}
-\newcommand*{\partners}[1]{\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
-
+\newcommand*{\team}[1]
+    {\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
+\newcommand*{\client}[1]
+    {\gdef\@client  {{\footnotesize\color{parties}\lang@client#1}}}
+\newcommand*{\coach}[1]
+    {\gdef\@coach   {{\footnotesize\color{parties}\lang@coach#1}}}
+\newcommand*{\coaches}[1]
+    {\gdef\@coaches {{\footnotesize\color{parties}\lang@coaches#1}}}
+\newcommand*{\expert}[1]
+    {\gdef\@expert  {{\footnotesize\color{parties}\lang@expert#1}}}
+\newcommand*{\experts}[1]
+    {\gdef\@experts {{\footnotesize\color{parties}\lang@experts#1}}}
+\newcommand*{\partner}[1]
+    {\gdef\@partner {{\footnotesize\color{parties}\lang@partner#1}}}
+\newcommand*{\partners}[1]
+    {\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
 \renewcommand\maketitle{\par
     \begingroup
         {\Huge\color{title}\@title}\par
-        \vspace{3em}
+        \vspace{2em}
         \global\let\maketitle\relax
         \global\let\@maketitle\relax
         \global\let\title\relax
@@ -132,7 +135,6 @@
         \global\let\@date\@empty
     \endgroup
 }
-
 \newlength{\placeholderbase}
 \newcommand\placeholderpics{%
     \setlength{\placeholderbase}{48mm}
@@ -150,38 +152,37 @@
     \end{tikzpicture}\par
     {\footnotesize Beautiful Picture and Amazing Graphics}
 }
-
-% Store the concents of \fssummary in \fs@content
 \newcommand\fscontent[1]{\gdef\fs@content{#1}}
-% Print the contents of \fs@content
 \newcommand\fs@makecontent{\par
     \vspace{1em}\begin{multicols}{3}
         \ifdef{\fs@content}{\fs@content}\par
     \end{multicols}
 }
-
-% Store the concents of \fssummary in \fs@summary
 \newcommand\fssummary[1]{\gdef\fs@summary{#1}}
-% Print the contents of \fs@summary
 \newcommand\fs@makesummary{\par
     \vspace{0.25em}\noindent\begin{minipage}{\textwidth}\large
         \ifdef{\fs@summary}{\color{summary}\fs@summary}\par
-    \end{minipage}\vspace{1em}
+    \end{minipage}%
 }
-
-% Store the content of \fsgraphics in \fs@graphics
 \newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
-% Print the contents of \fs@graphics
+\newcommand\graphicssource[1]{\gdef\fs@graphicssource{#1}}
+\newcommand\graphicscaption[1]{\mbox{#1}}
 \newcommand\fs@makegraphics{\par
-    \vspace{1em}\noindent\begin{minipage}{\textwidth}\Large
-        \ifdef{\fs@graphics}{\fs@graphics}\par
-    \end{minipage}
+    \vspace{1em}\noindent\begin{minipage}[b]{\textwidth}%
+        \footnotesize\raggedright
+        \ifdef{\fs@graphics}{\fs@graphics}\par\par
+        \ifdef{\fs@graphicscaption}{\fs@graphicscaption}\par
+    \end{minipage}%
+    \begin{minipage}[t]{2ex}\footnotesize\color{parties}
+        \ifdef{\fs@graphicssource}{%
+            \hspace*{2ex}%
+            \turnbox{90}{%
+                \hspace*{2ex} \lang@source \fs@graphicssource}}\par
+    \end{minipage}%
 }
-
-% Store the content of \infobox
 \newcommand\infobox[2]{%
     \gdef\fs@infoboxtitle{#1}%
-    \gdef\fs@infoboxcontent{#2}%
+    \gdef\fs@infoboxcontent{\footnotesize #2}%
 }
 \newcommand\fs@makeinfobox{
     \begin{tcolorbox}[
@@ -226,14 +227,6 @@
             {The infobox title is not defined. Make sure your infobox command is properly called.}
         }%
 }
-%\def\@schapter#1{\if@twocolumn
-%                   \@topnewpage[\@makeschapterhead{#1}]%
-%                 \else
-%                   \@makeschapterhead{#1}%
-%                   \@afterheading
-%                 \fi}
-
-% Taken mostly from 'classes.dtx'
 \renewcommand\chapter{%\if@openright\cleardoublepage\else\clearpage\fi
                     \thispagestyle{plain}%
                     \global\@topnum\z@
@@ -258,8 +251,8 @@
                     \fi}
 \def\@makechapterhead#1{%
     \begingroup
-        {\Huge\color{title}#1}\par
-        \vspace{3em}
+        \mbox{\Huge\color{title}#1}\par
+        \vspace{2em}
     \endgroup
 }
 \def\@makeschapterhead#1{%
@@ -278,7 +271,7 @@
     \begingroup
       \parindent \z@ \rightskip \@pnumwidth
       \parfillskip -\@pnumwidth
-      \leavevmode 
+      \leavevmode
       \advance\leftskip\@tempdima
       \hskip -\leftskip
       %\@dottedtocline{0}{0em}{0em}{#1}{#2}\par
@@ -286,12 +279,7 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
-
-%\setlength\parindent{0mm}
-%\newcommand*\includefactsheet[1]{\mbox{\input{#1}\makefactsheet}}
 \newcommand*\includefactsheet[1]{\input{#1}\makefactsheet\newpage}
-
-% Output Routine
 \newcommand\makefactsheet{
     \begin{factpage}
         \fs@checkinput
@@ -300,16 +288,23 @@
         % Note: We do not want to overwrite the \chapter pagestyle{plain} everywhere.
         \thispagestyle{empty}
         \fs@makesummary
+        \vspace{1ex}
         \fs@makegraphics
+        \vspace{1ex}
         \fs@makecontent
-        \vfill
+        \vspace{1ex}
         \tcbset{
             colback=boxbg,
             colframe=title,
+            boxrule=0.5pt,
+            toptitle=2pt,
+            bottomtitle=1pt,
+            titlerule=0.5pt,
         }
         \fs@makeinfobox
         \begin{minipage}[b]{0.30\textwidth}
             \ifdef{\@team}{\@team}{}\par
+            \ifdef{\@client}{\@client}{}\par
             \ifdef{\@coach}{\@coach}{}\par
             \ifdef{\@coaches}{\@coaches}{}\par
             \ifdef{\@expert}{\@expert}{}\par
@@ -317,9 +312,13 @@
             \ifdef{\@partner}{\@partner}{}\par
             \ifdef{\@partners}{\@partners}{}\par
         \end{minipage}
-    \end{factpage}\thepage
+    \end{factpage}\raisebox{6ex}{\hspace{3em}\thepage}
     % Undefine for next fact sheet
+    \let\fs@graphics\@undefined
+    \let\fs@graphicssource\@undefined
+    \let\fs@graphicscaption\@undefined
     \let\@team\@undefined
+    \let\@client\@undefined
     \let\@coach\@undefined
     \let\@coaches\@undefined
     \let\@expert\@undefined
@@ -329,3 +328,6 @@
     \let\fs@infoboxtitle\@undefined
     \let\fs@infoboxcontent\@undefined
 }
+\endinput
+%%
+%% End of file `fhnwfactsheet.cls'.
