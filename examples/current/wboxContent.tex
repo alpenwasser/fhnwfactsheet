@@ -26,10 +26,16 @@
 }
 
 \fsgraphics{
-    \includegraphics[width=0.64\textwidth,height=55mm]{images/wbox0}
-    \hfill
-    \includegraphics[width=0.34\textwidth,height=55mm]{images/wbox1}
-    \graphicscaption{Links: wBox Frontansicht, Rechts: Handy mit Netzwerkzugang}
+    \begin{minipage}{0.64\textwidth}
+        \includegraphics[width=\textwidth,height=55mm]{images/wbox0}
+        \graphicscaption{wBox Frontansicht}
+    \end{minipage}%
+    \raisebox{-0.75pt}{% For some reason, this is offset vertically. Fix.
+        \begin{minipage}{0.34\textwidth}
+            \includegraphics[width=\textwidth,height=55mm]{images/wbox1}
+            \graphicscaption{Handy mit Netzwerkzugang}
+        \end{minipage}%
+    }
 }
 
 \fscontent{
@@ -68,7 +74,7 @@
 }
 
 \infobox{\textbf{D}igital \textbf{L}iving \textbf{N}etwork \textbf{A}lliance}{%
-    Stellt    eine   Vereinigung    von    Herstellern    von   Computern    ,
+    Stellt    eine     Vereinigung    von    Herstellern     von    Computern,
     Unterhaltungselektronik  und  Mobiltelefonen  dar,  um  die  Kommunikation
     zwischen den Geräten der verschiedenen Hersteller sicherzustellen.
 

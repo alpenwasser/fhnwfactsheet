@@ -27,9 +27,16 @@
 
 \fsgraphics{
     \centering
-    \includegraphics[width=0.4\textwidth]{images/upone0}
-    \includegraphics[width=0.4\textwidth]{images/upone1}
-    \graphicscaption{Links: Schlichtes Design des UPone, Rechts: modernste Technik, kompakt verpackt.}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/upone0}
+        \graphicscaption{Schlichtes Design des UPone}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/upone1}
+        \graphicscaption{modernste Technik, kompakt verpackt.}
+    \end{minipage}
 }
 
 \fscontent{
@@ -70,11 +77,11 @@
 }
 
 \infobox{Die Qual der Wahl}{%
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[t][][b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{images/upone2}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.50\textwidth}\small
+    \begin{minipage}[t][][b]{0.50\textwidth}\small
         Der UPone kann  über WLAN oder durch den  Line-In Anschluss betrieben
         werden,   mit dem  PC, Smartphone,  MP3 Player  oder direkt  von einem
         Verstärker.

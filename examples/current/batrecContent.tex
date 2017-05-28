@@ -28,10 +28,14 @@
 }
 
 \fsgraphics{
-    \includegraphics[width=0.4\textwidth]{images/batrec0}
-    \hfill
-    \includegraphics[width=0.4\textwidth]{images/batrec1}
-    \graphicscaption{Links: die App, Rechts: das Ger\"at}
+    \begin{minipage}[t][][t]{0.5\textwidth}
+        \includegraphics[height=50mm]{images/batrec0}\par
+        \graphicscaption{die App}
+    \end{minipage}%
+    \begin{minipage}[t][][t]{0.5\textwidth}
+        \includegraphics[height=40mm]{images/batrec1}\par
+        \graphicscaption{das Ger\"at}
+    \end{minipage}
 }
 
 \fscontent{
@@ -77,12 +81,11 @@
 }
 
 \infobox{Technischer Aufbau}{%
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}[t][][b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{images/batrec2}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.50\textwidth}
-        \small
+    \begin{minipage}[t][][b]{0.50\textwidth}
         Die  Hardware wurde  so  kompakt wie  möglich  gemacht.  Dabei  wurde
         darauf geachtet, dass der analoge und der digitale Bereich voneinander
         getrennt wurden. Somit können  grössere Störungen vermieden werden.
