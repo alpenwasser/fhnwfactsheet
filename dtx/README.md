@@ -1,17 +1,15 @@
 The fhnwfactsheet LaTeX Class
 =============================
 
-Installation
-============
-
-Generating the Class and Documentation Files
---------------------------------------------
-
-Using the Class File
---------------------
+Run twice to get all references correct:
+```
+make
+make
+```
 
 References
 ==========
 
-multi-lingual mechanism:
-http://tex.stackexchange.com/questions/28640/multiple-documents-from-a-single-dtx
+The multi-lingual mechanism for the documentation is courtesy of Martin Scharrer
+from this answer:
+https://tex.stackexchange.com/a/28646/131649
