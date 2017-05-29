@@ -1,11 +1,14 @@
 default:
 	@latex fhnwfactsheet.ins
-	@pdflatex -shell-escape fhnwfactsheet.dtx
+	@pdflatex fhnwfactsheet.dtx
 	@makeindex -s gind.ist -o fhnwfactsheet.ind fhnwfactsheet.idx
 	@mv fhnwfactsheet.pdf fhnwfactsheet-en.pdf
-	@pdflatex -shell-escape fhnwfactsheet-de.tex
+	@pdflatex fhnwfactsheet-de.tex
 	@makeindex -s gind.ist -o fhnwfactsheet-de.ind fhnwfactsheet-de.idx
-	#@cp fhnwfactsheet.cls ../
+	@cp fhnwfactsheet.cls ../
+	@cp fhnwfactsheet.cls ../examples
+	@cp fhnwfactsheet-en.pdf ../
+	@cp fhnwfactsheet-de.pdf ../
 
 # Preserve PDF documents, template and class file.
 # This is what we might want to hand to an end user.
