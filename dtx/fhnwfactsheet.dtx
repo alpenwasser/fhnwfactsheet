@@ -93,7 +93,7 @@
 %          \fhnwfs~\fileversion, datiert~\filedate.}}
 %   \maketitle
 %   \begin{abstract}
-%        Die  \fhnwfs\ Klasse  dient zum  Erstellen von  Fact Sheets  f\"ur den
+%        Die  \fhnwfs\ Klasse  dient zum  Erstellen von  Factsheets  f\"ur den
 %        Studiengang \emph{Elektro- und Informationstechnik}  an der \htde\ der
 %        \fhnwdefull.
 %
@@ -111,10 +111,10 @@
 % \ifenglish
 %    \section{Basic Concept}
 %    \label{sec:concept}
-%    The class allows  to build indivitual standalone fact sheets  as well as a
-%    larger  document  containing  multiple  factsheets  as  a  collection, including
-%    a title page, a table of contents etc. The underlying structure in both scenarios
-%    is identical:
+%    The class  allows to build indivitual  standalone fact sheets as  well as
+%    a  larger  document containing  multiple  fact  sheets as  a  collection,
+%    including a title page, a table of contents etc. The underlying structure
+%    in both scenarios is identical:
 %    \dirtree{%^^A
 %        .1 Master Document.
 %        .2 Content Document.
@@ -160,12 +160,12 @@
 %        \item
 %        \textsf{fhnwfactsheet} erzwingt keine spezielle Dateinamen
 %        oder Ordnerstruktur. Man beachte die Anweisung der Lehrpersonals diesbez\"uglich
-%        wenn man ein Fact Sheet zur Einreichung bei der Schule erstellt.
+%        wenn man ein Factsheet zur Einreichung bei der Schule erstellt.
 %        \item
 %        Es sollten keine zus\"atzlichen Packages geladen werden. Dies wird den Prozess
-%        des Zusammenstellens verschiedener eigenst\"andiger Fact Sheets st\"oren.
+%        des Zusammenstellens verschiedener eigenst\"andiger Factsheets st\"oren.
 %        \textsf{fhnwfactsheet} l\"adt die meisten Pakete, welche man \"ublicherweise
-%        zur Erstellung eines Fact Sheets ben\"otigt. Falls wirklich ein Paket nicht
+%        zur Erstellung eines Factsheets ben\"otigt. Falls wirklich ein Paket nicht
 %        geladen ist, welches absolute, definitiv, sicherlich ben\"otigt wird, kontaktiere
 %        man den Package-Maintainer (siehe erste Seite). Er wird sehen, ob sich das
 %        zus\"atzliche Paket in die Klasse integrieren l\"asst, und falls ja, wird
@@ -177,10 +177,10 @@
 %    \subsection{Master Document}
 %    \label{subsec:masterdoc}
 %    Das  Master-Dokument  ist  das Dokument,  welches  durch  \verb|pdflatex|
-%    verarbeitet wird. Es richtet die Klasse  und Konfiguration ein und l\"adt
-%    anschliessend den eigentlichen Inhalt aus dem \verb|Content Document|. Wenn
-%    ein  eigenst\"andiges  Fact  Sheet  erstellt wird,  ist  dieses  Dokument
-%    ziemlich minimalistisch:
+%    verarbeitet  wird. Es  richtet  die  Klasse  und  Konfiguration  ein  und
+%    l\"adt  anschliessend  den  eigentlichen  Inhalt  aus  dem  \verb|Content Document|.
+%    Wenn ein eigenst\"andiges Factsheet  erstellt wird, ist dieses
+%    Dokument ziemlich minimalistisch:
 % \fi
 %\begin{verbatim}
 %\documentclass[german]{fhnwfactsheet}
@@ -194,7 +194,7 @@
 %     the creation of a table of contents.
 % \else
 %    Mehrere \verb|Content Document|s k\"onnen geladen werden, wenn man eine Sammlung von
-%    Fact Sheets erstellen m\"ochte. Jedes Fact Sheet wird auf einer einzelnen Seite
+%    Factsheets erstellen m\"ochte. Jedes Factsheet wird auf einer einzelnen Seite
 %    erstellt werden. Ein Inhaltsverzeichnis kann ebenfalls erstellt werden.
 % \fi
 %\begin{verbatim}
@@ -260,7 +260,7 @@
 %\begin{verbatim}
 %pdflatex fhnwfactsheet.dtx
 %\end{verbatim}
-%    Anschliessend \verb|fhnwfactsheet.cls| in das Verzeichnis des Fact Sheet-Projekts
+%    Anschliessend \verb|fhnwfactsheet.cls| in das Verzeichnis des Factsheet-Projekts
 %    kopieren und via \verb|documentclass| laden (siehe Master Document oben).
 % \fi
 %^^A >>>
@@ -363,7 +363,7 @@
 %    than three or maximum four lines. However, the macro itself does not enforce
 %    this. Example\footnote{Goethe's Faust -- Nacht; this will result in 3.5 lines.}
 %    Hier kommt der Einleitungstext hinein. Idealerweise sollte die Einleitung nicht
-%    l\"anger als drei bis maximal vier Zeilen sein. Das Macro erwzingt diese L\"ange
+%    l\"anger als drei bis maximal vier Zeilen sein. Das Macro erzwingt diese L\"ange
 %    allerdings nicht. Beispiel
 %\begin{verbatim}
 %\fssummary{%
@@ -481,14 +481,16 @@
 %
 %    \subsection{Sprachspezifische Macros}
 %    \label{subsec:language-specific}
-%    Diese Macros werden dazu verwendet, die im Project involvierten Personen und ihre
-%    Rollen zu beschreiben. Rollen welche nicht gef\"ullt waren, k\"onnen weggelassen
-%    werden. Keiner dieser Befehle muss benutzt werden, damit das Dokument kompiliert
-%    werden kann. Sie werden benutzt wenn definiert, andernfalls nicht.
+%    Diese Macros werden dazu verwendet,  die im Project involvierten Personen
+%    und  ihre  Rollen zu  beschreiben. Rollen,  welche  nicht besetzt  waren,
+%    k\"onnen weggelassen  werden. Keiner dieser Befehle muss  benutzt werden,
+%    damit  das  Dokument kompiliert  werden  kann. Sie  werden benutzt,  wenn
+%    definiert, andernfalls nicht.
 %
 %    \DescribeMacro{\team}
-%    Komma-getrennte Liste der Gruppenmitglieder. \emph{Beachte:} Zwecks Einhaltung von
-%    Konsistenz benutze man \verb|Vorname Nachname|-Notation. Beispiel:
+%    Komma-getrennte   Liste  der   Gruppenmitglieder.  \emph{Beachte:} Zwecks
+%    Einhaltung     von      nsistenz     benutze      man     \verb|Vorname Nachname|-Notation. 
+%    Beispiel:
 %\begin{verbatim}
 %\team{%
 %    Team Leader,
@@ -537,19 +539,19 @@
 %    Habe nun, ach! Philosophie,
 %    Juristerei und Medizin,
 %    Und leider auch Theologie
-%    Durchaus studiert, mit heißem Bemüh'n.
+%    Durchaus studiert, mit heissem Bem\"uh'n.
 %    Da steh ich nun, ich armer Tor!
 %    Und bin so klug als wie zuvor;
-%    Heiße Magister, heiße Doktor gar,
+%    Heisse Magister, heisse Doktor gar,
 %    Und ziehe schon an die zehen Jahr
 %    Herauf, herab und quer und krumm
-%    Meine Schüler an der Nase herum.}
+%    Meine Sch\"uler an der Nase herum.}
 %\end{verbatim}
 % 
 %    \DescribeMacro{\fsgraphics}
 %    Dieser Befehl wird eine Box zwischen \verb|\fssummary| und \verb|\fscontent|
-%    setzen mit allf\"alligen Grafiken. In der Gestaltund des Inhalts von \verb|\fsgraphics|
-%    ist man relative frei. Sinnvollerweise kommt hier \verb|\includegraphics| zum Zug.
+%    setzen mit allf\"alligen Grafiken. In der Gestaltung des Inhalts von \verb|\fsgraphics|
+%    ist man relativ frei. Sinnvollerweise kommt hier \verb|\includegraphics| zum Zug.
 %    
 %    Will man mehrere Grafiken einbinden und nebeneinander anordnen, kann man dies
 %    mit \verb|minipage|s bewerkstelligen (siehe Beispiel weiter unten)
@@ -580,7 +582,7 @@
 %\end{verbatim}
 %
 %    \DescribeMacro{\fscontent}
-%    Der Haupt-Inhalt, aufgeteilt in drei Spalten. Der Text kann wie gehabt via
+%    Der Hauptinhalt, aufgeteilt in drei Spalten. Der Text kann wie gehabt via
 %    \verb|\section| unterteilt werden (\verb|\subsection| und \verb|\subsubsection|
 %    sind jedoch deaktiviert).
 % 
@@ -591,15 +593,15 @@
 %\section{Faust -- Nacht}
 %\label{sec:faust-night}
 %
-%Und sehe, daß wir nichts wissen können!
+%Und sehe, daß wir nichts wissen k\"onnen!
 %Das will mir schier das Herz verbrennen.
 %Zwar bin ich gescheiter als all die Laffen,
 %Doktoren, Magister, Schreiber und Pfaffen;
 %Mich plagen keine Skrupel noch Zweifel,
-%Fürchte mich weder vor Hölle noch Teufel -
-%Dafür ist mir auch alle Freud´ entrissen,
+%F\"urchte mich weder vor H\"olle noch Teufel -
+%Daf\"ur ist mir auch alle Freud´ entrissen,
 %Bilde mir nicht ein, was Recht's zu wissen,
-%Bilde mir nicht ein, ich könnte was lehren,
+%Bilde mir nicht ein, ich k\"onnte was lehren,
 %Die Menschen zu bessern und zu bekehren.
 %
 %\section{Faust -- Mehr Nacht}
@@ -607,14 +609,14 @@
 %
 %Auch hab´ ich weder Gut noch Geld,
 %Noch Ehr´ und Herrlichkeit der Welt;
-%Es möchte kein Hund so länger leben!
+%Es m\"ochte kein Hund so l\"anger leben!
 %Drum hab´ ich mich der Magie ergeben,
 %Ob mir durch Geistes Kraft und Mund
-%Nicht manch Geheimnis würde kund;
-%Daß ich nicht mehr mit saurem Schweiß
-%Zu sagen brauche, was ich nicht weiß;
-%Daß ich erkenne, was die Welt
-%Im Innersten zusammenhält,
+%Nicht manch Geheimnis w\"urde kund;
+%Dass ich nicht mehr mit saurem Schweiss
+%Zu sagen brauche, was ich nicht weiss;
+%Dass ich erkenne, was die Welt
+%Im Innersten zusammenh\"alt,
 %Schau´ alle Wirkenskraft und Samen,
 %Und tu´ nicht mehr in Worten kramen.
 %\end{verbatim}    
@@ -639,7 +641,7 @@
 %    \end{tabular}}
 %\end{verbatim}
 %    \DescribeMacro{\includefactsheet}
-%    L\"aedt ein \verb|Content Document| in einem \verb|Master Document| (siehe
+%    L\"adt ein \verb|Content Document| in einem \verb|Master Document| (siehe
 %    Abschnitt~\ref{sec:concept}).
 % \fi
 %^^A >>>

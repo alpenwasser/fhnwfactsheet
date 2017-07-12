@@ -7,6 +7,7 @@ all:
 	@pdflatex sonart
 	@pdflatex upone
 	@pdflatex wbox
+	@pdflatex plain
 
 tidy:
 	@rm -f *.aux
