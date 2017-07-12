@@ -8,7 +8,7 @@
 %%     Author: Raphael Frey <webmaster@alpenwasser.net>
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fhnwfactsheet}%
-    [2017/05/28 v0.9.0 PDF-LaTeX class for FHNW fact sheets]
+    [2017/07/12 v1.0.0 PDF-LaTeX class for FHNW fact sheets]
 
 
 
