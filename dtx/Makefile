@@ -7,6 +7,12 @@ default:
 	@makeindex -s gind.ist -o fhnwfactsheet-de.ind fhnwfactsheet-de.idx
 	@cp fhnwfactsheet.cls ../
 	@cp fhnwfactsheet.cls ../examples
+	@cp fhnwfactsheet.cls ../examples/batcapture
+	@cp fhnwfactsheet.cls ../examples/batrec
+	@cp fhnwfactsheet.cls ../examples/plain
+	@cp fhnwfactsheet.cls ../examples/sonart
+	@cp fhnwfactsheet.cls ../examples/upone
+	@cp fhnwfactsheet.cls ../examples/wbox
 	@cp fhnwfactsheet-en.pdf ../
 	@cp fhnwfactsheet-de.pdf ../
 

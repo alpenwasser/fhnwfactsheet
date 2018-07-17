@@ -3,3 +3,8 @@ resources
 *.log
 *.toc
 *.out
+*.glo
+*.idx
+*.ilg
+*.ind
+dtx/*.pdf

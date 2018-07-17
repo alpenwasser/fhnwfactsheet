@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 % -------------------------------------------------------- %
-% Copyright (c) 2017 Raphael Frey rmfrey@runbox.com        %
+% Copyright (c) 2018 Raphael Frey rmfrey@runbox.com        %
 % -------------------------------------------------------- %
 %                                                          %
 % This file  may be distributed and/or  modified under the %
@@ -13,7 +13,7 @@
 % -------------------------------------------------------- %
 % \fi
 %
-%\CheckSum{615}
+%\CheckSum{624}
 %
 %
 %^^A ------------------------------------------------------------------------- %
@@ -25,7 +25,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\ProvidesClass{fhnwfactsheet}%
 %<*class>
-    [2017/07/12 v1.0.0 PDF-LaTeX class for FHNW fact sheets]
+    [2018/07/17 v1.0.1 PDF-LaTeX class for FHNW fact sheets]
 %</class>
 %<*driver>
 \expandafter\ifx\csname ifenglish\endcsname\relax
@@ -115,21 +115,41 @@
 %    a  larger  document containing  multiple  fact  sheets as  a  collection,
 %    including a title page, a table of contents etc. The underlying structure
 %    in both scenarios is identical:
+%    \vspace{2ex}
 %    \dirtree{%^^A
-%        .1 Master Document.
-%        .2 Content Document.
-%        .3 Further Ressources (e.g.~images).
+%        .1 Master document.
+%        .2 Content document.
+%        .3 Further ressources (e.g.~images).
 %    }
-%    \emph{Note:} 
+%    \vspace{2ex}
+%    \noindent In case of multiple fact sheets being included in a larger collection,
+%    it is also possible to have a larger master document at the top and organize the 
+%    included fact sheets in their own subdirectories. Each fact sheet can still have its
+%    own master document in this case for standalone compilation. The master document
+%    for the collection will just ignore them.
+%    \vspace{2ex}
+%    \dirtree{%^^A
+%        .1 Master document for collection.
+%        .2 Subdir 1.
+%        .3 Master document for fact sheet 1.
+%        .3 Content document for fact sheet 1.
+%        .3 Further ressources for fact sheet 1 (e.g.~images).
+%        .2 Subdir 2.
+%        .3 Master document for fact sheet 2.
+%        .3 Content document for fact sheet 2.
+%        .3 Further Ressources for fact sheet 2 (e.g.~images).
+%    }
+%    \vspace{2ex}
+%    \noindent\emph{Note:} 
 %    \begin{itemize}
 %        \item
-%        \textsf{fhnwfactsheet} does not enforce any specifif file name
+%        \textsf{fhnwfactsheet} does not enforce any specific file name
 %        specification. Follow your teacher's instructions if you are creating a fact
 %        sheet for submission to the school.
 %        \item
 %        Do not load additional packages! This will mess up the process of merging your
 %        standalone fact sheet with others.
-%        \textsf{fhnwfactsheet}loads most classes one would reasonably need to create
+%        \textsf{fhnwfactsheet} loads most classes one would reasonably need to create
 %        a fact sheet. If there really is a package which you absolutely, positively
 %        need, contact the package maintainer and he will see if it can be integrated
 %        into the class. This will then allow to push the class to everyone through an
@@ -149,13 +169,32 @@
 %    als  eigenst\"andige  Dokumente  wie  auch das  Erstellen  einer  Sammlung
 %    von   Factsheets   in   einerm  gr\"osseren   Dokument   mit   Titelseite,
 %    Inhaltsverzeichnis etc. Die grundlegende Struktur ist dabeit identisch:
+%    \vspace{2ex}
 %    \dirtree{%^^A
 %        .1 Master Document.
 %        .2 Content Document.
 %        .3 Weitere Ressourcen (z.B.~Bilder).
 %    }
-%
-%    \emph{Beachte:} 
+%    \vspace{2ex}
+%    \noindent Wenn mehrere Factsheets in einer gr\"osseren Sammlung zusammengefasst
+%    werden, k\"onnen sie auch in eigenen Unterverzeichnissen abgelegt werden zur besseren
+%    \"Ubersicht und zur Vermeidung von Konflikten bei Dateinamen. Dabei kann jedes Factsheet
+%    nach wie vor sein eigenes Master Document haben; das Master Document der Sammlung wird
+%    diese einfach ignorieren.
+%    \vspace{2ex}
+%    \dirtree{%^^A
+%        .1 Master Document.
+%        .2 Subdir 1.
+%        .3 Master document f\"ur Factsheet 1.
+%        .3 Content document f\"ur Factsheet 1.
+%        .3 Weitere Ressourcen f\"ur Factsheet 1 (e.g.~Bilder).
+%        .2 Subdir 2.
+%        .3 Master document f\"ur Factsheet 2.
+%        .3 Content document f\"ur Factsheet 2.
+%        .3 Weitere Ressourcen f\"ur Factsheet 2 (e.g.~Bilder).
+%    }
+%    \vspace{2ex}
+%    \noindent\emph{Beachte:} 
 %    \begin{itemize}
 %        \item
 %        \textsf{fhnwfactsheet} erzwingt keine spezielle Dateinamen
@@ -191,11 +230,14 @@
 % \ifenglish
 %     Multiple \verb|Content Document|s can be included if you wish to create a collection
 %     of fact sheets. Each fact sheet will be put on a single page. This also enables
-%     the creation of a table of contents.
+%     the creation of a table of contents. In this example, each factsheet is in its own
+%     subdirectory, though this is not strictly necessary or enforced by the package.
 % \else
 %    Mehrere \verb|Content Document|s k\"onnen geladen werden, wenn man eine Sammlung von
 %    Factsheets erstellen m\"ochte. Jedes Factsheet wird auf einer einzelnen Seite
-%    erstellt werden. Ein Inhaltsverzeichnis kann ebenfalls erstellt werden.
+%    erstellt werden. Ein Inhaltsverzeichnis kann ebenfalls erstellt werden. In diesem Beispiel
+%    ist jedes Factsheet in einem eigenen Unterverzeichnis; diese Struktur wird aber von der
+%    Klasse selbst nicht erzwungen.
 % \fi
 %\begin{verbatim}
 %\documentclass[german]{fhnwfactsheet}
@@ -205,10 +247,10 @@
 %
 %\newpage\pagenumbering{arabic}
 %
-%\includefactsheet{factsheet1Content.tex}
-%\includefactsheet{factsheet2Content.tex}
-%\includefactsheet{factsheet3Content.tex}
-%\includefactsheet{factsheet4Content.tex}
+%\includefactsheet[subdir1/]{factsheet1Content.tex}
+%\includefactsheet[subdir2/]{factsheet2Content.tex}
+%\includefactsheet[subdir3/]{factsheet3Content.tex}
+%\includefactsheet[subdir4/]{factsheet4Content.tex}
 %\end{document}
 %\end{verbatim}
 % \ifenglish
@@ -470,9 +512,15 @@
 %    \end{tabular}}
 %\end{verbatim}
 %
-%    \DescribeMacro{\includefactsheet}
-%    Loads a \verb|Content Document| in a \verb|Master Document| (see
-%    Section~\ref{sec:concept}).
+%    \DescribeMacro{\includefactsheet\oarg{Subdirectory}\marg{ContentDocument}}
+%
+%    \noindent Loads a \verb|Content Document| in a \verb|Master Document| (see
+%    Section~\ref{sec:concept}). For organizing a master document with many
+%    content documents, there is the option of putting those content documents in
+%    individual subdirectories and passing those subdirectories to the 
+%    \verb|includefactsheet| command. \emph{Note:} The subdirectory must have a 
+%    trailing slash appended: \verb|\includefactsheet[subdir/]{contentDoc.tex}|.
+%    See also the \verb|examples| directory of the repository.
 %
 % \else
 %    \section{Befehle}
@@ -640,9 +688,15 @@
 %               & Property H \\
 %    \end{tabular}}
 %\end{verbatim}
-%    \DescribeMacro{\includefactsheet}
-%    L\"adt ein \verb|Content Document| in einem \verb|Master Document| (siehe
-%    Abschnitt~\ref{sec:concept}).
+%    \DescribeMacro{\includefactsheet\oarg{Subdirectory}\marg{ContentDocument}}
+%
+%    \noindent L\"adt ein \verb|Content Document| in einem \verb|Master Document| (siehe
+%    Abschnitt~\ref{sec:concept}). Um ein gr\"osseres Masterdokument mit mehreren
+%    Content Documents zu organisieren, steht die M\"oglichkeit zur Verf\"ugung,
+%    ein Unterverzeichnis \verb|subdirectory| an den \verb|\includefactsheet|-Befehl
+%    zu \"ubergeben. \emph{Merke:} Bei der Pfadangabe des Unterverzeichnisses ist
+%    zwingend ein Slash anzuh\"angen: \verb|\includefactsheet[subdir/]{contentDoc.tex}|.
+%    Siehe auch die Beispiele im Verzeichnis \verb|examples| des Repositorys.
 % \fi
 %^^A >>>
 
@@ -651,9 +705,11 @@
 % \ifenglish\section{Examples}\else\section{Beispiele}\fi
 % \label{sec:examples}
 % \ifenglish
-%    The \verb|examples| directory contains a few examples.
+%    The \verb|examples| directory contains a few examples, both for standalone
+%    documents and a collection of fact sheets.
 % \else
-%    Das Verzeichnis \verb|examples| enth\"alt einige Beispiele.
+%    Das Verzeichnis \verb|examples| enth\"alt einige Beispiele, sowohl f\"ur alleinstehende
+%    Projekte wie auch f\"ur eine Sammlung von Factsheets.
 % \fi
 %^^A No options, just a few things to pay attention to: ... list of things
 %^^A >>>
@@ -716,6 +772,7 @@
 \colorlet{boxbg}{cyan!50!blue!20!white}
 \RequirePackage{tcolorbox}
 \RequirePackage{booktabs}
+\RequirePackage{microtype}
 \RequirePackage[binary-units=true]{siunitx}
 \sisetup{range-phrase=--}
 \RequirePackage[%
@@ -924,7 +981,7 @@
 %<*class> 
 %\fi
 %    \begin{macrocode}
-\newcommand\fscontent[1]{\gdef\fs@content{#1}}
+\newcommand\fscontent[1]{\gdef\fs@content{\graphicspath{\fs@graphicspath}#1}}
 %    \end{macrocode}
 %\iffalse
 %</class>
@@ -972,7 +1029,7 @@
 %<*class> 
 %\fi
 %    \begin{macrocode}
-\newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
+\newcommand\fsgraphics[1]{\gdef\fs@graphics{\graphicspath{\fs@graphicspath}#1}}
 \newcommand\graphicssource[1]{\gdef\fs@graphicssource{#1}}
 %    \end{macrocode}
 %\iffalse
@@ -1017,7 +1074,7 @@
 %    \begin{macrocode}
 \newcommand\infobox[2]{%
     \gdef\fs@infoboxtitle{#1}%
-    \gdef\fs@infoboxcontent{\footnotesize #2}%
+    \gdef\fs@infoboxcontent{\graphicspath{\fs@graphicspath}\footnotesize #2}%
 }
 \newcommand\fs@makeinfobox{
     \begin{tcolorbox}[
@@ -1141,7 +1198,11 @@
 %<*class> 
 %\fi
 %    \begin{macrocode}
-\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet\newpage}
+\newcommand*\includefactsheet[2][]{%
+    \input{#1#2}%
+    \gdef\fs@graphicspath{#1}%
+    \makefactsheet%
+    \newpage}
 %    \end{macrocode}
 %\iffalse
 %</class>

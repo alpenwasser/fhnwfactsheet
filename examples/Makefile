@@ -1,21 +1,29 @@
 .DEFAULT: all
 
 all:
-	@pdflatex batcapture
-	@pdflatex batrec
 	@pdflatex Main
-	@pdflatex sonart
-	@pdflatex upone
-	@pdflatex wbox
-	@pdflatex plain
+	@cd batcapture && pdflatex batcapture
+	@cd batrec && pdflatex batrec
+	@cd sonart && pdflatex sonart
+	@cd upone && pdflatex upone
+	@cd wbox && pdflatex wbox
+	@cd plain && pdflatex plain
+
+main:
+	@pdflatex Main
 
 tidy:
 	@rm -f *.aux
 	@rm -f *.toc
 	@rm -f *.out
 	@rm -f *.log
+	@rm -f */*.aux
+	@rm -f */*.toc
+	@rm -f */*.out
+	@rm -f */*.log
 
 clean: tidy
-	@mv logo-top.pdf logo-top.pdf.bak
+	@mv images/logo-top.pdf images/logo-top.pdf.bak
 	@rm -f *.pdf
-	@mv logo-top.pdf.bak logo-top.pdf
+	@rm -f */*.pdf
+	@mv images/logo-top.pdf.bak images/logo-top.pdf

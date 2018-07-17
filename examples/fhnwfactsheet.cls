@@ -8,7 +8,7 @@
 %%     Author: Raphael Frey <webmaster@alpenwasser.net>
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fhnwfactsheet}%
-    [2017/07/12 v1.0.0 PDF-LaTeX class for FHNW fact sheets]
+    [2018/07/17 v1.0.1 PDF-LaTeX class for FHNW fact sheets]
 
 
 
@@ -41,6 +41,7 @@
 \colorlet{boxbg}{cyan!50!blue!20!white}
 \RequirePackage{tcolorbox}
 \RequirePackage{booktabs}
+\RequirePackage{microtype}
 \RequirePackage[binary-units=true]{siunitx}
 \sisetup{range-phrase=--}
 \RequirePackage[%
@@ -152,7 +153,7 @@
     \end{tikzpicture}\par
     {\footnotesize Beautiful Picture and Amazing Graphics}
 }
-\newcommand\fscontent[1]{\gdef\fs@content{#1}}
+\newcommand\fscontent[1]{\gdef\fs@content{\graphicspath{\fs@graphicspath}#1}}
 \newcommand\fs@makecontent{\par
     \vspace{1em}\begin{multicols}{3}
         \ifdef{\fs@content}{\fs@content}\par
@@ -164,7 +165,7 @@
         \ifdef{\fs@summary}{\color{summary}\fs@summary}\par
     \end{minipage}%
 }
-\newcommand\fsgraphics[1]{\gdef\fs@graphics{#1}}
+\newcommand\fsgraphics[1]{\gdef\fs@graphics{\graphicspath{\fs@graphicspath}#1}}
 \newcommand\graphicssource[1]{\gdef\fs@graphicssource{#1}}
 \newcommand\graphicscaption[1]{\mbox{#1}}
 \newcommand\fs@makegraphics{\par
@@ -182,7 +183,7 @@
 }
 \newcommand\infobox[2]{%
     \gdef\fs@infoboxtitle{#1}%
-    \gdef\fs@infoboxcontent{\footnotesize #2}%
+    \gdef\fs@infoboxcontent{\graphicspath{\fs@graphicspath}\footnotesize #2}%
 }
 \newcommand\fs@makeinfobox{
     \begin{tcolorbox}[
@@ -279,7 +280,11 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
-\newcommand*\includefactsheet[1]{\input{#1}\makefactsheet\newpage}
+\newcommand*\includefactsheet[2][]{%
+    \input{#1#2}%
+    \gdef\fs@graphicspath{#1}%
+    \makefactsheet%
+    \newpage}
 \newcommand\makefactsheet{
     \begin{factpage}
         \fs@checkinput

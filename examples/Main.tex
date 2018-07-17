@@ -6,7 +6,7 @@
 \begin{tikzpicture}[remember picture,overlay]
     \node[xshift=10mm,yshift=-5mm,anchor=north west]
         at (current page.north west)
-        {\includegraphics[height=10mm]{logo-top}};
+        {\includegraphics[height=10mm]{images/logo-top}};
 
     \node[font=\Huge\scshape,align=center]
         at (current page.center)
@@ -23,9 +23,9 @@
 % ----------------------------------------------------------------- MAIN CONTENT
 \newpage\pagenumbering{arabic}
 
-\includefactsheet{batcaptureContent.tex}
-\includefactsheet{batrecContent.tex}
-\includefactsheet{sonartContent.tex}
-\includefactsheet{uponeContent.tex}
-\includefactsheet{wboxContent.tex}
+\includefactsheet[batcapture/]{batcaptureContent.tex}
+\includefactsheet[batrec/]{batrecContent.tex}
+\includefactsheet[sonart/]{sonartContent.tex}
+\includefactsheet[upone/]{uponeContent.tex}
+\includefactsheet[wbox/]{wboxContent.tex}
 \end{document}
