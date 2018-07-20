@@ -1,0 +1,19 @@
+# gitignore template for fhnwfacthsheet root directory
+# ====================================================
+resources
+*.aux
+*.bbl 
+*.blg 
+*.fdb_latexmk 
+*.log
+*.fls 
+*.toc
+*.out
+*.glo
+*.idx
+*.ilg
+*.ind
+*.synctex.gz 
+dtx/*.pdf
+dtx/*.cls
+dtx/*.tex

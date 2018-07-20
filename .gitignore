@@ -8,3 +8,5 @@ resources
 *.ilg
 *.ind
 dtx/*.pdf
+dtx/*.cls
+dtx/*.tex
