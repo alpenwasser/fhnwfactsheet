@@ -12,16 +12,24 @@
 
 
 
-
-
 \newif\if@english
 \newif\if@german
+\newif\if@confidential
+\newif\if@tocteam
+\newif\if@tocprojtype
+\newif\if@fspath
 \DeclareOption{english}{\@englishtrue\@germanfalse}
 \DeclareOption{german}{\@germantrue\@englishfalse}
 \DeclareOption{deutsch}{\@germantrue\@englishfalse}
-\ExecuteOptions{english,german,deutsch}
+\DeclareOption{confidential}{\@confidentialtrue}
+\DeclareOption{tocteam}{\@tocteamtrue}
+\DeclareOption{tocprojtype}{\@tocprojtypetrue}
+\DeclareOption{fspath}{\@fspathtrue}
+\DeclareOption*{% Fallback
+  \ClassError{myclass}{Unknown option '\CurrentOption'}
+}
+\ExecuteOptions{english,german,deutsch} % default options
 \ProcessOptions
-
 \LoadClass{report}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -31,17 +39,26 @@
 \RequirePackage{multicol}
 \RequirePackage[inline]{enumitem}
 \RequirePackage{geometry}
+\if@confidential
+    \RequirePackage{draftwatermark}
+    \if@english
+        \SetWatermarkText{Confidential}
+    \fi
+    \if@german
+        \SetWatermarkText{Vertraulich}
+    \fi
+\fi
 \RequirePackage[scaled=0.95]{helvet}
 \renewcommand\familydefault{\sfdefault}
 \RequirePackage{xcolor}
-\RequirePackage{rotating}
 \definecolor{parties}{HTML}{666666}
 \definecolor{title}{HTML}{000066}
 \definecolor{summary}{HTML}{666666}
 \colorlet{boxbg}{cyan!50!blue!20!white}
+\RequirePackage{rotating}
+\RequirePackage{microtype}
 \RequirePackage{tcolorbox}
 \RequirePackage{booktabs}
-\RequirePackage{microtype}
 \RequirePackage[binary-units=true]{siunitx}
 \sisetup{range-phrase=--}
 \RequirePackage[%
@@ -53,7 +70,6 @@
 \if@german
     \RequirePackage[ngerman]{babel}
 \fi
-
 \geometry{a4paper,twoside=false}
 \newlength{\factpageouter}
 \newlength{\factpageinner}
@@ -74,6 +90,7 @@
           top=\factpagetop,    bottom=\factpagebottom}
 
 \let\newcol\newpage
+\newsavebox\fs@pagenumberbox
 \newenvironment{factpage}
     {\noindent\begin{minipage}[t][0pt]{\factpagewidth}}
     {\end{minipage}}
@@ -109,7 +126,16 @@
     \newcommand*{\lang@source}  {\textit{Quelle: }}
 }{}
 \newcommand*{\team}[1]
-    {\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
+    {%
+        \gdef\@team    {%
+            {%
+                \footnotesize\color{parties}%
+                \lang@team%
+                #1%
+            }
+        }%
+        \if@tocteam\gdef\@tocteam {#1}\fi%
+    }
 \newcommand*{\client}[1]
     {\gdef\@client  {{\footnotesize\color{parties}\lang@client#1}}}
 \newcommand*{\coach}[1]
@@ -124,6 +150,8 @@
     {\gdef\@partner {{\footnotesize\color{parties}\lang@partner#1}}}
 \newcommand*{\partners}[1]
     {\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
+\newcommand*{\projtype}[1]
+    {\if@tocprojtype\gdef\@projtype{#1}\fi}
 \renewcommand\maketitle{\par
     \begingroup
         {\Huge\color{title}\@title}\par
@@ -282,13 +310,19 @@
   \fi}
 \newcommand*\includefactsheet[2][]{%
     \input{#1#2}%
+    \if@fspath%
+        \sbox{\fs@pagenumberbox}{\thepage}
+        \gdef\fs@factsheetdirectory{#1}%
+    \fi%
     \gdef\fs@graphicspath{#1}%
     \makefactsheet%
     \newpage}
-\newcommand\makefactsheet{
+\newcommand\makefactsheet{%
     \begin{factpage}
         \fs@checkinput
-        \chapter{\@title}
+        \chapter
+            [\ifdef{\@tocteam}{\@tocteam: }{}\@title\ifdef{\@projtype}{ \textbf{(\@projtype)}}{}]
+            {\@title}
         % Must be after \chapter
         % Note: We do not want to overwrite the \chapter pagestyle{plain} everywhere.
         \thispagestyle{empty}
@@ -317,12 +351,24 @@
             \ifdef{\@partner}{\@partner}{}\par
             \ifdef{\@partners}{\@partners}{}\par
         \end{minipage}
-    \end{factpage}\raisebox{6ex}{\hspace{3em}\thepage}
+    \end{factpage}%
+    \raisebox{6ex}{%
+        \hspace{3em}%
+        \thepage%
+        \if@fspath%
+            \hspace{-\textwidth}%
+            \hspace{-3em}%
+            \hspace{-\wd\fs@pagenumberbox}%
+            {\color{parties}\fs@factsheetdirectory}%
+        \fi}
     % Undefine for next fact sheet
     \let\fs@graphics\@undefined
     \let\fs@graphicssource\@undefined
     \let\fs@graphicscaption\@undefined
     \let\@team\@undefined
+    \let\@tocteam\@undefined
+    \let\fs@factsheetdirectory\@undefined
+    \let\@projtype\@undefined
     \let\@client\@undefined
     \let\@coach\@undefined
     \let\@coaches\@undefined

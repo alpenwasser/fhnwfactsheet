@@ -10,10 +10,13 @@
 %                                                          %
 %     http://www.latex-project.org/lppl.txt                %
 %                                                          %
+% and version 1.3 or later is section of all distributions %
+% of LaTeX version 2005/12/01 or later.                    %
+%                                                          %
 % -------------------------------------------------------- %
 % \fi
 %
-%\CheckSum{624}
+%\CheckSum{0}
 %
 %
 %^^A ------------------------------------------------------------------------- %
@@ -67,10 +70,13 @@
 %</driver>
 % \fi
 %^^A >>>
-%
+%^^A ------------------------------------------------------------------------- %
+%^^A GetFileInto, DoNotIndex <<<
+% \GetFileInfo{fhnwfactsheet.dtx}
+% \DoNotIndex{\end}
+%^^A >>>
 %^^A ------------------------------------------------------------------------- %
 %^^A TITLE, ABSTRACT, ToC <<<
-% \GetFileInfo{fhnwfactsheet.dtx}
 % \author{Raphael Frey \\[0.5em] \href{https://github.com/alpenwasser/fhnwfactsheet/}%
 %                                     {\nolinkurl{https://github.com/alpenwasser/fhnwfactsheet/}}}
 %
@@ -105,7 +111,6 @@
 %
 % \tableofcontents
 %^^A >>>
-%
 %^^A ------------------------------------------------------------------------- %
 %^^A Basic Concept <<<
 % \ifenglish
@@ -328,7 +333,7 @@
 %    \DescribeMacro{english}
 %    \DescribeMacro{german}
 %    \DescribeMacro{deutsch}
-%    Diese Klassne-Optionen laden die entsprechenden Konfigurationen in \textsf{babel}
+%    Diese Klassen-Optionen laden die entsprechenden Konfigurationen in \textsf{babel}
 %    und definieren einige Schl\"usselw\"orter in der jeweiligen Sprache. Wenn keine
 %    Sprache spezifiziert wird, l\"adt die Klasse auf deutsch.
 %    
@@ -340,6 +345,38 @@
 %\documentclass[german]{fhnwfactsheet}  % German
 %\documentclass[english]{fhnwfactsheet} % English
 %\end{verbatim}
+%
+% \DescribeMacro{confidential}
+% \ifenglish
+%    Prints a \emph{Confidential} watermark across the pages.
+% \else
+%    Druckt einen \emph{Vertraulich}-Schriftzug quer \"uber die Seiten.
+% \fi
+%
+% \DescribeMacro{tocteam}
+% \ifenglish
+%    Adds the project team to the table of contents line of the fact sheet. \emph{Note:}
+%    This can get rather cumbersome for large groups. It is probably only sensible to
+%    enable this option in case of small teams to preserve ToC legibility.
+% \else
+%    F\"ugt das Projekt-Team zum Inhaltsverzeichnis hinzu. \emph{Hinweis:} Dies
+%    kann ziemlich un\"ubersichtlich werden bei gr\"osseren Teams. Es empfiehlt sich,
+%    diese Option lediglich bei kleinen Gruppen einzuschalten.
+% \fi
+%
+% \DescribeMacro{tocprojtype}
+% \ifenglish
+%    Adds the project type to the table of contents (e.g. \emph{P6}).
+% \else
+%    F\"ugt den Projekttyp ins Inhaltsverzeichnis ein (z.B. \emph{P6}).
+% \fi
+%
+% \DescribeMacro{fspath}
+% \ifenglish
+%    Displays the directory of the current fact sheet in the heading line of its page.
+% \else
+%    Zeigt das Verzeichnis des aktuellen Factsheets auf seiner Seite an.
+% \fi
 %^^A >>>
 
 %^^A COMMANDS <<<
@@ -510,6 +547,13 @@
 %               & Property G \\
 %               & Property H \\
 %    \end{tabular}}
+%\end{verbatim}
+%
+%    \DescribeMacro{\projtype\marg{Project Type}}
+%    Indicates the project type for table of contents. Is only displayed if the
+%    \verb|tocprojtype| class option has been set. Example:
+%\begin{verbatim}
+%\projtype{P6}
 %\end{verbatim}
 %
 %    \DescribeMacro{\includefactsheet\oarg{Subdirectory}\marg{ContentDocument}}
@@ -688,6 +732,15 @@
 %               & Property H \\
 %    \end{tabular}}
 %\end{verbatim}
+%
+%    \DescribeMacro{\projtype\marg{Project Type}}
+%    Gibt den Typ des Projekts an f\"ur das Inhaltsverzeichnis, falls erw\"unscht.
+%    Resultiert nur in Output wenn die Klasse mit der \verb|tocprojtype|-Option
+%    geladen worden ist. Beispiel:
+%\begin{verbatim}
+%\projtype{P6}
+%\end{verbatim}
+%
 %    \DescribeMacro{\includefactsheet\oarg{Subdirectory}\marg{ContentDocument}}
 %
 %    \noindent L\"adt ein \verb|Content Document| in einem \verb|Master Document| (siehe
@@ -699,7 +752,6 @@
 %    Siehe auch die Beispiele im Verzeichnis \verb|examples| des Repositorys.
 % \fi
 %^^A >>>
-
 %^^A ------------------------------------------------------------------------- %
 %^^A EXAMPLES <<<
 % \ifenglish\section{Examples}\else\section{Beispiele}\fi
@@ -713,7 +765,6 @@
 % \fi
 %^^A No options, just a few things to pay attention to: ... list of things
 %^^A >>>
-
 %^^A ------------------------------------------------------------------------- %
 %^^A STYLE GUIDELINES <<<
 %^^A \ifenglish\section{Style Guidelines}\else\section{Stil-Richtlinien}\fi
@@ -725,7 +776,6 @@
 %^^A \fi
 %^^A No options, just a few things to pay attention to: ... list of things
 %^^A >>>
-%
 %^^A ------------------------------------------------------------------------- %
 %^^A IMPLEMENTATION <<<
 % \section{Implementation}
@@ -735,8 +785,10 @@
 % \ifenglish
 % If you are merely intending to use this class, you probably do not need to read this.
 % \else
-% Normale Benutzer brauchen diesen Abschnitt vermutlich nicht zu lesen.
+% Normale Benutzer brauchen diesen Abschnitt vermutlich nicht zu lesen. Der Text in diesem
+% Abschnitt ist absichtlich rein in Englisch gehalten.
 % \fi
+% \subsection{Class Initialization}
 %^^A Need the class guards to prevent the macro code from being included again 
 %^^A in template.tex and the German .tex file
 %\iffalse
@@ -745,12 +797,67 @@
 %    \begin{macrocode}
 \newif\if@english
 \newif\if@german
+\newif\if@confidential
+\newif\if@tocteam
+\newif\if@tocprojtype
+\newif\if@fspath
 \DeclareOption{english}{\@englishtrue\@germanfalse}
 \DeclareOption{german}{\@germantrue\@englishfalse}
 \DeclareOption{deutsch}{\@germantrue\@englishfalse}
-\ExecuteOptions{english,german,deutsch}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Add a \verb|confidential| option to print a watermark across the page.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\DeclareOption{confidential}{\@confidentialtrue}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Add options to enable team and/or project type in table of contents.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\DeclareOption{tocteam}{\@tocteamtrue}
+\DeclareOption{tocprojtype}{\@tocprojtypetrue}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Add a \verb|fspath| option to display path of directory fact sheet in heading.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\DeclareOption{fspath}{\@fspathtrue}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Fallback for invalid options, processing options.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\DeclareOption*{% Fallback
+  \ClassError{myclass}{Unknown option '\CurrentOption'}
+}
+\ExecuteOptions{english,german,deutsch} % default options
 \ProcessOptions
-
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% \subsection{Load Packages}
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
 % Packages
 \LoadClass{report}
 \RequirePackage[utf8]{inputenc}
@@ -761,18 +868,55 @@
 \RequirePackage{multicol}
 \RequirePackage[inline]{enumitem}
 \RequirePackage{geometry}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Load \textsf{draftwatermark} package if \verb|confidential| has been enabled.
+% Set appropriate text in the selected language.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\if@confidential
+    \RequirePackage{draftwatermark}
+    \if@english
+        \SetWatermarkText{Confidential}
+    \fi
+    \if@german
+        \SetWatermarkText{Vertraulich}
+    \fi
+\fi
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Fonts and colors.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
 \RequirePackage[scaled=0.95]{helvet}
 \renewcommand\familydefault{\sfdefault}
 \RequirePackage{xcolor}
-\RequirePackage{rotating}
 % Define document colos palette
 \definecolor{parties}{HTML}{666666}
 \definecolor{title}{HTML}{000066}
 \definecolor{summary}{HTML}{666666}
 \colorlet{boxbg}{cyan!50!blue!20!white}
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% Miscellaneous other packages.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\RequirePackage{rotating}
+\RequirePackage{microtype}
 \RequirePackage{tcolorbox}
 \RequirePackage{booktabs}
-\RequirePackage{microtype}
 \RequirePackage[binary-units=true]{siunitx}
 \sisetup{range-phrase=--}
 \RequirePackage[%
@@ -784,8 +928,15 @@
 \if@german
     \RequirePackage[ngerman]{babel}
 \fi
-
-% Page Geometry
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
+% \subsection{Page Geometry}
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
 \geometry{a4paper,twoside=false}
 \newlength{\factpageouter}
 \newlength{\factpageinner}
@@ -828,6 +979,16 @@
 %\iffalse
 %</class>
 %\fi
+% A box for storing the current page number so that its width can be measured.
+%\iffalse
+%<*class> 
+%\fi
+%    \begin{macrocode}
+\newsavebox\fs@pagenumberbox
+%    \end{macrocode}
+%\iffalse
+%</class>
+%\fi
 % We put the entire  page inside a minipage environment to  make it not take
 % up more space than a single page. We  also set the height of that minipage
 % to zero so that  it stays on the first page no matter  how much content is
@@ -843,6 +1004,8 @@
 %\iffalse
 %</class>
 %\fi
+% \subsection{Headings}
+% 
 % Redefine Section Headings  to not be numbered by default. This  is done by
 % adding a * after its sixth argument. The rest of the command is similar to
 % what can be found in The LaTeX article.cls file.
@@ -873,7 +1036,7 @@
 %\iffalse
 %</class>
 %\fi
-% Define language-specific terms.
+% \subsection{Dictionaries}
 %\iffalse
 %<*class> 
 %\fi
@@ -910,7 +1073,16 @@
 %\fi
 %    \begin{macrocode}
 \newcommand*{\team}[1]
-    {\gdef\@team    {{\footnotesize\color{parties}\lang@team#1}}}
+    {%
+        \gdef\@team    {%
+            {%
+                \footnotesize\color{parties}%
+                \lang@team%
+                #1%
+            }
+        }%
+        \if@tocteam\gdef\@tocteam {#1}\fi%
+    }
 \newcommand*{\client}[1]
     {\gdef\@client  {{\footnotesize\color{parties}\lang@client#1}}}
 \newcommand*{\coach}[1]
@@ -925,11 +1097,13 @@
     {\gdef\@partner {{\footnotesize\color{parties}\lang@partner#1}}}
 \newcommand*{\partners}[1]
     {\gdef\@partners{{\footnotesize\color{parties}\lang@partners#1}}}
+\newcommand*{\projtype}[1]
+    {\if@tocprojtype\gdef\@projtype{#1}\fi}
 %    \end{macrocode}
 %\iffalse
 %</class>
 %\fi
-% Redefine \verb|maketitle| to do our bidding:
+% \subsection{Maketitle}
 %\iffalse
 %<*class> 
 %\fi
@@ -950,7 +1124,7 @@
 %\iffalse
 %</class>
 %\fi
-% For testing purposes:
+% \subsection{Placeholder Pictures for Testing}
 %\iffalse
 %<*class> 
 %\fi
@@ -976,6 +1150,7 @@
 %\iffalse
 %</class>
 %\fi
+% \subsection{Content Macros}
 % Store the concents of \verb|\fscontent| in \verb|\fs@content|
 %\iffalse
 %<*class> 
@@ -1093,7 +1268,7 @@
 %\iffalse
 %</class>
 %\fi
-% Errors:
+% \subsection{Errors}
 %\iffalse
 %<*class> 
 %\fi
@@ -1132,7 +1307,8 @@
 %\iffalse
 %</class>
 %\fi
-% Chapter code. Taken mostly from \verb|classes.dtx|.
+% \subsection{Chapter Code}
+% Taken mostly from \verb|classes.dtx|.
 %\iffalse
 %<*class> 
 %\fi
@@ -1193,13 +1369,17 @@
 %\iffalse
 %</class>
 %\fi
-% Including a fact sheet content file in a master document:
+% \subsection{Including Content File in Master Document}
 %\iffalse
 %<*class> 
 %\fi
 %    \begin{macrocode}
 \newcommand*\includefactsheet[2][]{%
     \input{#1#2}%
+    \if@fspath%
+        \sbox{\fs@pagenumberbox}{\thepage}
+        \gdef\fs@factsheetdirectory{#1}%
+    \fi%
     \gdef\fs@graphicspath{#1}%
     \makefactsheet%
     \newpage}
@@ -1207,15 +1387,18 @@
 %\iffalse
 %</class>
 %\fi
-% Output routine:
+%
+% \subsection{Output Routine}
 %\iffalse
 %<*class> 
 %\fi
 %    \begin{macrocode}
-\newcommand\makefactsheet{
+\newcommand\makefactsheet{%
     \begin{factpage}
         \fs@checkinput
-        \chapter{\@title}
+        \chapter
+            [\ifdef{\@tocteam}{\@tocteam: }{}\@title\ifdef{\@projtype}{ \textbf{(\@projtype)}}{}]
+            {\@title}
         % Must be after \chapter
         % Note: We do not want to overwrite the \chapter pagestyle{plain} everywhere.
         \thispagestyle{empty}
@@ -1244,12 +1427,24 @@
             \ifdef{\@partner}{\@partner}{}\par
             \ifdef{\@partners}{\@partners}{}\par
         \end{minipage}
-    \end{factpage}\raisebox{6ex}{\hspace{3em}\thepage}
+    \end{factpage}%
+    \raisebox{6ex}{%
+        \hspace{3em}%
+        \thepage%
+        \if@fspath%
+            \hspace{-\textwidth}%
+            \hspace{-3em}%
+            \hspace{-\wd\fs@pagenumberbox}%
+            {\color{parties}\fs@factsheetdirectory}%
+        \fi}
     % Undefine for next fact sheet
     \let\fs@graphics\@undefined
     \let\fs@graphicssource\@undefined
     \let\fs@graphicscaption\@undefined
     \let\@team\@undefined
+    \let\@tocteam\@undefined
+    \let\fs@factsheetdirectory\@undefined
+    \let\@projtype\@undefined
     \let\@client\@undefined
     \let\@coach\@undefined
     \let\@coaches\@undefined
@@ -1267,7 +1462,6 @@
 %
 % \Finale
 %^^A >>>
-%
 %^^A ------------------------------------------------------------------------- %
 %^^A TEMPLATE <<<
 % \iffalse
@@ -1326,7 +1520,6 @@
 %</template>
 % \fi
 %^^A >>>
-%
 %^^A ------------------------------------------------------------------------- %
 %^^A MULTI-LANGUAGE SUPPORT <<<
 % \iffalse
@@ -1337,7 +1530,6 @@
 %</de>
 % \fi
 %^^A >>>
-%
 %^^A ------------------------------------------------------------------------- %
 %^^A CHARACTER TABLE <<<
 % \CharacterTable
